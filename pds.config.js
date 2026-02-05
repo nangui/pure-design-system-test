@@ -7,7 +7,7 @@ export const config = {
   preset: "social-feed",
 
   autoDefine: {
-    predefine: ["pds-icon", "pds-drawer", "pds-toaster"],
+    predefine: ["pds-icon", "pds-drawer", "pds-toaster", "pds-tabstrip"],
 
     // Custom component paths
     mapper: (tag) => {
