@@ -2,3 +2,6 @@ folders/
 
 node_modules/
 
+# Build output
+public/assets/js/app.js
+public/assets/js/app.js.map
