@@ -1,0 +1,8 @@
+[
+  {"id":1,"unread":true,"sender":{"name":"Fatou Ndiaye","email":"fatou.ndiaye@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=2"}},"body":"sent you a message","date":"2026-02-05T10:00:00.000Z"},
+  {"id":2,"sender":{"name":"Mariama Kane"},"body":"subscribed to your email list","date":"2026-02-05T09:30:00.000Z"},
+  {"id":3,"unread":true,"sender":{"name":"Moussa Sow","avatar":{"src":"https://i.pravatar.cc/128?u=3"}},"body":"sent you a message","date":"2026-02-05T08:00:00.000Z"},
+  {"id":4,"sender":{"name":"Ousmane Traoré","avatar":{"src":"https://i.pravatar.cc/128?u=4"}},"body":"added you to a project","date":"2026-02-05T08:00:00.000Z"},
+  {"id":5,"sender":{"name":"Cheikh Sene","avatar":{"src":"https://i.pravatar.cc/128?u=5"}},"body":"abandoned cart","date":"2026-02-04T16:00:00.000Z"},
+  {"id":6,"sender":{"name":"Ndeye Diop","avatar":{"src":"https://i.pravatar.cc/128?u=6"}},"body":"purchased your product","date":"2026-02-04T12:00:00.000Z"}
+]

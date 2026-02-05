@@ -1,0 +1,7 @@
+[
+  {"id":1,"from":{"name":"Amadou Diallo","email":"amadou.diallo@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=1"}},"subject":"Meeting Schedule: Q1 Marketing Strategy Review","body":"Quick reminder about our Q1 Marketing Strategy meeting...","date":"2026-02-05T12:00:00.000Z"},
+  {"id":2,"unread":true,"from":{"name":"Fatou Ndiaye","email":"fatou.ndiaye@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=2"}},"subject":"RE: Project Phoenix - Sprint 3 Update","body":"Quick update on Sprint 3 deliverables...","date":"2026-02-05T11:53:00.000Z"},
+  {"id":3,"unread":true,"from":{"name":"Moussa Sow","email":"moussa.sow@mail.ng","avatar":{"src":"https://i.pravatar.cc/128?u=3"}},"subject":"Lunch Plans","body":"Would you like to grab lunch this Friday?","date":"2026-02-05T09:00:00.000Z"},
+  {"id":4,"from":{"name":"Aminata Fall","avatar":{"src":"https://i.pravatar.cc/128?u=4"}},"subject":"New Proposal: Project Horizon","body":"I've uploaded the comprehensive proposal...","date":"2026-02-04T14:00:00.000Z"},
+  {"id":5,"from":{"name":"Ibrahima Ba"},"subject":"Updated: Dakar Conference Trip","body":"Please find your confirmed travel itinerary below...","date":"2026-02-04T14:00:00.000Z"}
+]

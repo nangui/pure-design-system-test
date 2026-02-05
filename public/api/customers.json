@@ -1,0 +1,10 @@
+[
+  {"id":1,"name":"Amadou Diallo","email":"amadou.diallo@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=1"},"status":"subscribed","location":"Dakar"},
+  {"id":2,"name":"Fatou Ndiaye","email":"fatou.ndiaye@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=2"},"status":"unsubscribed","location":"Lagos"},
+  {"id":3,"name":"Moussa Sow","email":"moussa.sow@mail.ng","avatar":{"src":"https://i.pravatar.cc/128?u=3"},"status":"bounced","location":"Nairobi"},
+  {"id":4,"name":"Aminata Fall","email":"aminata.fall@mail.za","avatar":{"src":"https://i.pravatar.cc/128?u=4"},"status":"subscribed","location":"Johannesburg"},
+  {"id":5,"name":"Ibrahima Ba","email":"ibrahima.ba@example.co.ke","avatar":{"src":"https://i.pravatar.cc/128?u=5"},"status":"subscribed","location":"Cairo"},
+  {"id":6,"name":"Mariama Kane","email":"mariama.kane@example.eg","avatar":{"src":"https://i.pravatar.cc/128?u=6"},"status":"subscribed","location":"Abidjan"},
+  {"id":7,"name":"Ousmane Traoré","email":"ousmane.traore@mail.ci","avatar":{"src":"https://i.pravatar.cc/128?u=7"},"status":"subscribed","location":"Accra"},
+  {"id":8,"name":"Khadija Sarr","email":"khadija.sarr@mail.sn","avatar":{"src":"https://i.pravatar.cc/128?u=8"},"status":"subscribed","location":"Dakar"}
+]
