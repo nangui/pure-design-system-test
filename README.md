@@ -2,13 +2,15 @@
 
 A single-page dashboard built to **explore [Pure Design System (PDS)](https://pureweb.dev/manifesto)** and **native browser APIs only**—no React, Vue, or other UI frameworks. The goal is to show that the browser is enough: PDS for design tokens and components, and standard Web APIs for behaviour.
 
+**Features:** Home (stats + line chart), Inbox, Customers, Board (Kanban + drag-and-drop), Settings (General, Members, Notifications, Security), **login page** at `/login`, and a **theme override** (light + dark) loaded after PDS via `pds:ready`.
+
 ## Goals
 
 - **Pure Design System**: Use PDS for layout, tokens, primitives, and web components (`pds-drawer`, `pds-tabstrip`, `pds-icon`, etc.) with no extra UI dependencies.
 - **Native browser APIs**: Prefer built-in APIs over libraries:
   - **Navigation API** (with hash fallback) for routing
   - **Fetch** + **Cache API** (and in-memory fallback) for cached API calls
-  - **Dynamic `import()`** for code-splitting page modules
+  - **Static imports** for page modules (single esbuild bundle, no chunk 404s)
   - **Web Speech API** (Speech Synthesis) for “Read aloud”
   - **Web Authentication API** (passkeys) for the demo button
   - **View Transitions API** for page changes
@@ -21,11 +23,12 @@ A single-page dashboard built to **explore [Pure Design System (PDS)](https://pu
 |------|-------------|
 | **Router** (`src/js/router.js`) | Hash-based routing using the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) when available, with `hashchange` fallback. Prevents re-running the same path to avoid loops (e.g. when `replaceState` is used by `pds-tabstrip`). |
 | **Layout** (`src/js/layout.js`) | Sidebar (with collapsible Settings), toolbar (search, notifications, theme), and main outlet. Built with semantic HTML and PDS classes. |
-| **Pages** (`src/js/pages/*.js`) | Home (stats + chart), Inbox (mails), Customers (table), Settings (tabstrip: General, Members, Notifications, Security), Board (Kanban + drag-and-drop). Statically imported so the single esbuild bundle works without 404s on chunk requests. |
+| **Pages** (`src/js/pages/*.js`) | Home (stats + chart with hover tooltip), Inbox (mails), Customers (table), **Login** (`/login`), Settings (tabstrip: General, Members, Notifications, Security), Board (Kanban + drag-and-drop). Statically imported so the single esbuild bundle works without 404s. |
 | **Cache** (`src/js/lib/fetch-cache.js`) | Cached `fetch` for `/api/*`: uses **Cache API** when available, otherwise an in-memory cache with TTL. The in-memory store is wrapped in a **[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)** to count cache hits/misses without changing the public API. |
 | **Charts** (`src/js/lib/chart.js`) | Simple line/bar charts using the **Canvas API**. |
 | **Speech** (`src/js/lib/speech.js`) | **Web Speech API** (Speech Synthesis) for “Read aloud” on the Board, with priming and voice selection for better support across browsers. |
 | **Components** | Command palette and notifications slideover built with `pds-drawer`; theme drawer with `pds-theme`. |
+| **Theme** | `theme-override.css` overrides PDS tokens (light + `html[data-theme="dark"]`). Injected on **`pds:ready`** via `adoptedStyleSheets` so it wins over PDS `@layer` styles. |
 
 ## Running the project
 
@@ -47,8 +50,8 @@ src/js/
   pages/           # One module per route (dynamic import)
   lib/             # fetch-cache (with Proxy), chart, speech, animations, countries-data
 public/
-  api/             # Mock JSON (stats, mails, notifications, countries)
-  assets/          # PDS (components, styles, icons), app.css, built app.js
+  api/             # Mock JSON (stats, mails, notifications, customers, members)
+  assets/          # PDS (components, styles, icons), app.css, theme-override.css, built app.js
 ```
 
 ## Design choices
