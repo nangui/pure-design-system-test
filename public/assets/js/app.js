@@ -1,159 +1,436 @@
-// node_modules/@pure-ds/core/public/assets/js/pds.js
-var gt = Object.defineProperty;
-var bt = (t3, e) => () => (t3 && (e = t3(t3 = 0)), e);
-var $t = (t3, e) => {
-  for (var s in e)
-    gt(t3, s, { get: e[s], enumerable: true });
+// node_modules/.pnpm/@pure-ds+core@0.5.58/node_modules/@pure-ds/core/public/assets/js/pds.js
+var _e = Object.defineProperty;
+var Ue = (e2, t) => () => (e2 && (t = e2(e2 = 0)), t);
+var ue = (e2, t) => {
+  for (var n in t)
+    _e(e2, n, { get: t[n], enumerable: true });
 };
-var it = {};
-$t(it, { AutoDefiner: () => Pe });
-async function Gt(...t3) {
-  let e = {};
-  t3.length && typeof t3[t3.length - 1] == "object" && (e = t3.pop() || {});
-  let s = t3, { baseURL: n, mapper: r = (d) => `${d}.js`, onError: o = (d, l) => console.error(`[defineWebComponents] ${d}:`, l) } = e, i = n ? new URL(n, typeof location < "u" ? location.href : import.meta.url) : new URL("./", import.meta.url), a = (d) => d.toLowerCase().replace(/(^|-)([a-z])/g, (l, u, f) => f.toUpperCase()), c = async (d) => {
+var Ae = {};
+ue(Ae, { AutoDefiner: () => se });
+async function Ye(...e2) {
+  let t = {};
+  e2.length && typeof e2[e2.length - 1] == "object" && (t = e2.pop() || {});
+  let n = e2, { baseURL: r, mapper: o = (d) => `${d}.js`, onError: s = (d, l) => console.error(`[defineWebComponents] ${d}:`, l) } = t, i = r ? new URL(r, typeof location < "u" ? location.href : import.meta.url) : new URL("./", import.meta.url), u = (d) => d.toLowerCase().replace(/(^|-)([a-z])/g, (l, a, m) => m.toUpperCase()), c = async (d) => {
     try {
       if (customElements.get(d))
         return { tag: d, status: "already-defined" };
-      let l = r(d), f = await (l instanceof URL ? import(l.href) : import(new URL(l, i).href)), m = f?.default ?? f?.[a(d)];
-      if (!m) {
+      let l = o(d), m = await (l instanceof URL ? import(l.href) : import(new URL(l, i).href)), h = m?.default ?? m?.[u(d)];
+      if (!h) {
         if (customElements.get(d))
           return { tag: d, status: "self-defined" };
-        throw new Error(`No export found for ${d}. Expected default export or named export "${a(d)}".`);
+        throw new Error(`No export found for ${d}. Expected default export or named export "${u(d)}".`);
       }
-      return customElements.get(d) ? { tag: d, status: "race-already-defined" } : (customElements.define(d, m), { tag: d, status: "defined" });
+      return customElements.get(d) ? { tag: d, status: "race-already-defined" } : (customElements.define(d, h), { tag: d, status: "defined" });
     } catch (l) {
-      throw o(d, l), l;
+      throw s(d, l), l;
     }
   };
-  return Promise.all(s.map(c));
+  return Promise.all(n.map(c));
 }
-var Pe;
-var at = bt(() => {
-  Pe = class {
-    constructor(e = {}) {
-      let { baseURL: s, mapper: n, onError: r, predicate: o = () => true, attributeModule: i = "data-module", root: a = document, scanExisting: c = true, debounceMs: d = 16, observeShadows: l = true, enhancers: u = [], patchAttachShadow: f = true } = e, m = /* @__PURE__ */ new Set(), $ = /* @__PURE__ */ new Set(), x = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Map(), _ = /* @__PURE__ */ new WeakMap(), H = /* @__PURE__ */ new WeakMap(), A = 0, D = false, L = null, Z = (p) => {
-        if (!p || !u.length)
+var se;
+var Ce = Ue(() => {
+  se = class {
+    constructor(t = {}) {
+      let { baseURL: n, mapper: r, onError: o, predicate: s = () => true, attributeModule: i = "data-module", root: u = document, scanExisting: c = true, debounceMs: d = 16, observeShadows: l = true, enhancers: a = [], patchAttachShadow: m = true } = t, h = /* @__PURE__ */ new Set(), w = /* @__PURE__ */ new Set(), v = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Map(), x = /* @__PURE__ */ new WeakMap(), M = /* @__PURE__ */ new WeakMap(), E = 0, k = false, C = null, q = (p) => {
+        if (!p || !a.length)
           return;
-        let y = H.get(p);
-        y || (y = /* @__PURE__ */ new Set(), H.set(p, y));
-        for (let h of u)
-          if (!(!h.selector || !h.run) && !y.has(h.selector))
+        let y = M.get(p);
+        y || (y = /* @__PURE__ */ new Set(), M.set(p, y));
+        for (let f of a)
+          if (!(!f.selector || !f.run) && !y.has(f.selector))
             try {
-              p.matches && p.matches(h.selector) && (h.run(p), y.add(h.selector));
-            } catch (v) {
-              console.warn(`[AutoDefiner] Error applying enhancer for selector "${h.selector}":`, v);
+              p.matches && p.matches(f.selector) && (f.run(p), y.add(f.selector));
+            } catch (A) {
+              console.warn(`[AutoDefiner] Error applying enhancer for selector "${f.selector}":`, A);
             }
       }, I = (p, y) => {
-        if (!D && !(!p || !p.includes("-")) && !customElements.get(p) && !$.has(p) && !x.has(p)) {
+        if (!k && !(!p || !p.includes("-")) && !customElements.get(p) && !w.has(p) && !v.has(p)) {
           if (y && y.getAttribute) {
-            let h = y.getAttribute(i);
-            h && !g.has(p) && g.set(p, h);
+            let f = y.getAttribute(i);
+            f && !g.has(p) && g.set(p, f);
           }
-          m.add(p), oe();
+          h.add(p), F();
         }
-      }, oe = () => {
-        A || (A = setTimeout(z, d));
-      }, E = (p) => {
+      }, F = () => {
+        E || (E = setTimeout(O, d));
+      }, L = (p) => {
         if (p) {
           if (p.nodeType === 1) {
-            let y = p, h = y.tagName?.toLowerCase();
-            h && h.includes("-") && !customElements.get(h) && o(h, y) && I(h, y), Z(y), l && y.shadowRoot && M(y.shadowRoot);
+            let y = p, f = y.tagName?.toLowerCase();
+            f && f.includes("-") && !customElements.get(f) && s(f, y) && I(f, y), q(y), l && y.shadowRoot && R(y.shadowRoot);
           }
           p.querySelectorAll && p.querySelectorAll("*").forEach((y) => {
-            let h = y.tagName?.toLowerCase();
-            h && h.includes("-") && !customElements.get(h) && o(h, y) && I(h, y), Z(y), l && y.shadowRoot && M(y.shadowRoot);
+            let f = y.tagName?.toLowerCase();
+            f && f.includes("-") && !customElements.get(f) && s(f, y) && I(f, y), q(y), l && y.shadowRoot && R(y.shadowRoot);
           });
         }
-      }, M = (p) => {
-        if (!p || _.has(p))
+      }, R = (p) => {
+        if (!p || x.has(p))
           return;
-        E(p);
-        let y = new MutationObserver((h) => {
-          for (let v of h)
-            v.addedNodes?.forEach((B) => {
-              E(B);
-            }), v.type === "attributes" && v.target && E(v.target);
+        L(p);
+        let y = new MutationObserver((f) => {
+          for (let A of f)
+            A.addedNodes?.forEach((_) => {
+              L(_);
+            }), A.type === "attributes" && A.target && L(A.target);
         });
-        y.observe(p, { childList: true, subtree: true, attributes: true, attributeFilter: [i, ...u.map((h) => h.selector).filter((h) => h.startsWith("data-"))] }), _.set(p, y);
+        y.observe(p, { childList: true, subtree: true, attributes: true, attributeFilter: [i, ...a.map((f) => f.selector).filter((f) => f.startsWith("data-"))] }), x.set(p, y);
       };
-      async function z() {
-        if (clearTimeout(A), A = 0, !m.size)
+      async function O() {
+        if (clearTimeout(E), E = 0, !h.size)
           return;
-        let p = Array.from(m);
-        m.clear(), p.forEach((y) => $.add(y));
+        let p = Array.from(h);
+        h.clear(), p.forEach((y) => w.add(y));
         try {
-          let y = (h) => g.get(h) ?? (n ? n(h) : `${h}.js`);
-          await Gt(...p, { baseURL: s, mapper: y, onError: (h, v) => {
-            x.add(h), r?.(h, v);
+          let y = (f) => g.get(f) ?? (r ? r(f) : `${f}.js`);
+          await Ye(...p, { baseURL: n, mapper: y, onError: (f, A) => {
+            v.add(f), o?.(f, A);
           } });
         } catch {
         } finally {
-          p.forEach((y) => $.delete(y));
+          p.forEach((y) => w.delete(y));
         }
       }
-      let S = a === document ? document.documentElement : a, R = new MutationObserver((p) => {
+      let S = u === document ? document.documentElement : u, P = new MutationObserver((p) => {
         for (let y of p)
-          y.addedNodes?.forEach((h) => {
-            E(h);
-          }), y.type === "attributes" && y.target && E(y.target);
+          y.addedNodes?.forEach((f) => {
+            L(f);
+          }), y.type === "attributes" && y.target && L(y.target);
       });
-      if (R.observe(S, { childList: true, subtree: true, attributes: true, attributeFilter: [i, ...u.map((p) => p.selector).filter((p) => p.startsWith("data-"))] }), l && f && Element.prototype.attachShadow) {
+      if (P.observe(S, { childList: true, subtree: true, attributes: true, attributeFilter: [i, ...a.map((p) => p.selector).filter((p) => p.startsWith("data-"))] }), l && m && Element.prototype.attachShadow) {
         let p = Element.prototype.attachShadow;
-        Element.prototype.attachShadow = function(h) {
-          let v = p.call(this, h);
-          if (h && h.mode === "open") {
-            M(v);
-            let B = this.tagName?.toLowerCase();
-            B && B.includes("-") && !customElements.get(B) && I(B, this);
+        Element.prototype.attachShadow = function(f) {
+          let A = p.call(this, f);
+          if (f && f.mode === "open") {
+            R(A);
+            let _ = this.tagName?.toLowerCase();
+            _ && _.includes("-") && !customElements.get(_) && I(_, this);
           }
-          return v;
-        }, L = () => Element.prototype.attachShadow = p;
+          return A;
+        }, C = () => Element.prototype.attachShadow = p;
       }
-      return c && E(S), { stop() {
-        D = true, R.disconnect(), L && L(), A && (clearTimeout(A), A = 0), _.forEach((p) => p.disconnect());
-      }, flush: z };
+      return c && L(S), { stop() {
+        k = true, P.disconnect(), C && C(), E && (clearTimeout(E), E = 0), x.forEach((p) => p.disconnect());
+      }, flush: O };
     }
-    static async define(...e) {
-      let s = {};
-      e.length && typeof e[e.length - 1] == "object" && (s = e.pop() || {});
-      let n = e, { baseURL: r, mapper: o = (l) => `${l}.js`, onError: i = (l, u) => console.error(`[defineWebComponents] ${l}:`, u) } = s, a = r ? new URL(r, typeof location < "u" ? location.href : import.meta.url) : new URL("./", import.meta.url), c = (l) => l.toLowerCase().replace(/(^|-)([a-z])/g, (u, f, m) => m.toUpperCase()), d = async (l) => {
+    static async define(...t) {
+      let n = {};
+      t.length && typeof t[t.length - 1] == "object" && (n = t.pop() || {});
+      let r = t, { baseURL: o, mapper: s = (l) => `${l}.js`, onError: i = (l, a) => console.error(`[defineWebComponents] ${l}:`, a) } = n, u = o ? new URL(o, typeof location < "u" ? location.href : import.meta.url) : new URL("./", import.meta.url), c = (l) => l.toLowerCase().replace(/(^|-)([a-z])/g, (a, m, h) => h.toUpperCase()), d = async (l) => {
         try {
           if (customElements.get(l))
             return { tag: l, status: "already-defined" };
-          let u = o(l), m = await (u instanceof URL ? import(u.href) : import(new URL(u, a).href)), $ = m?.default ?? m?.[c(l)];
-          if (!$) {
+          let a = s(l), h = await (a instanceof URL ? import(a.href) : import(new URL(a, u).href)), w = h?.default ?? h?.[c(l)];
+          if (!w) {
             if (customElements.get(l))
               return { tag: l, status: "self-defined" };
             throw new Error(`No export found for ${l}. Expected default export or named export "${c(l)}".`);
           }
-          return customElements.get(l) ? { tag: l, status: "race-already-defined" } : (customElements.define(l, $), { tag: l, status: "defined" });
-        } catch (u) {
-          throw i(l, u), u;
+          return customElements.get(l) ? { tag: l, status: "race-already-defined" } : (customElements.define(l, w), { tag: l, status: "defined" });
+        } catch (a) {
+          throw i(l, a), a;
         }
       };
-      return Promise.all(n.map(d));
+      return Promise.all(r.map(d));
     }
   };
 });
-var me = class {
+function pe(e2) {
+  return new DOMParser().parseFromString(e2, "text/html").body.childNodes;
+}
+function he(e2, t = 100) {
+  let n;
+  return function(...o) {
+    let s = () => {
+      clearTimeout(n), e2(...o);
+    };
+    clearTimeout(n), n = setTimeout(s, t);
+  };
+}
+function W(e2) {
+  setTimeout(e2, 0);
+}
+function fe(e2) {
+  try {
+    if (typeof e2 != "string" || e2.indexOf(`
+`) !== -1 || e2.indexOf(" ") !== -1 || e2.startsWith("#/"))
+      return false;
+    let t = new URL(e2, window.location.origin);
+    return t.protocol === "http:" || t.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+function me(e2, t, n) {
+  let r = window.screen.width / 2 - t / 2, o = window.screen.height / 2 - n / 2;
+  return window.open(e2, "", `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=${t}, height=${n}, top=${o}, left=${r}`);
+}
+var Z = { result: "ac-suggestion", item: "ac-itm" };
+var z = class e extends EventTarget {
+  constructor(t, n, r) {
+    super(), this.settings = { emptyResultsText: "", ...r }, this.container = t, this.input = n, this.input.setAttribute("autocomplete", "off"), this.categories = r.categories || {}, this.caches = /* @__PURE__ */ new Map(), W(this.attach.bind(this));
+  }
+  static connect(t, n) {
+    let r = t.target;
+    if (!r._autoComplete) {
+      if (!n?.categories)
+        throw Error("Missing autocomplete settings");
+      r._autoComplete = new e(r.parentNode, r, n), t.type === "focus" && setTimeout(() => {
+        r._autoComplete.focusHandler(t);
+      }, 100);
+    }
+    return r._autoComplete;
+  }
+  on(t, n) {
+    return this.input.addEventListener(t, n), this;
+  }
+  attach() {
+    this.resultsDiv = document.createElement("div"), this.resultsDiv.title = "", this.resultsDiv.classList.add(Z.result), this.container.offsetWidth > 100 && (this.resultsDiv.style.width = this.container.offsetWidth), this.resultsDiv.addEventListener("mousedown", this.resultClick.bind(this)), this.container.classList.add("ac-container"), this.input.classList.add("ac-input");
+    let t = getComputedStyle(this.input);
+    this.container.style.setProperty("--ac-bg-default", t.backgroundColor), this.container.style.setProperty("--ac-color-default", t.color);
+    let n = getComputedStyle(this.input).accentColor;
+    n !== "auto" && this.container.style.setProperty("--ac-accent-color", n), (this.container?.shadowRoot ?? this.container).appendChild(this.resultsDiv), this.controller().clear("attach"), this.on("input", he(this.inputHandler.bind(this), this.settings.throttleInputMs ?? 300)).on("focus", this.focusHandler.bind(this)).on("focusout", this.blurHandler.bind(this)).on("keyup", this.keyUpHandler.bind(this)).on("keydown", this.keyDownHandler.bind(this));
+  }
+  controller() {
+    let t = this.internalController();
+    return typeof this.settings.controller == "function" && (t = this.settings.controller(this) ?? t), t;
+  }
+  internalController() {
+    return { show: this.show.bind(this), hide: this.hide.bind(this), clear: this.clear.bind(this), empty: () => {
+    } };
+  }
+  moveResult(t) {
+    this.controller().show();
+    let n = this.acItems.length;
+    this.rowIndex = this.rowIndex + t, this.rowIndex <= 0 ? this.rowIndex = 0 : this.rowIndex > n - 1 && (this.rowIndex = 0);
+    for (let o of this.acItems)
+      o.classList.remove("selected");
+    let r = this.getSelectedDiv();
+    r ? (r.classList.add("selected"), r.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })) : this.focusHandler({ target: this.input });
+  }
+  getSelectedDiv() {
+    return this.resultsDiv.querySelector(`div:nth-child(${this.rowIndex + 1})`);
+  }
+  selectResult(t) {
+    if (t = t || this.getSelectedDiv(), t) {
+      let n = parseInt(t.getAttribute("data-index"));
+      this.resultClicked = true;
+      let r = this.results[n], o = this.categories[r.category] ?? {};
+      o.action = o.action ?? this.setText.bind(this), o.newTab && (this.tabWindow = me("about:blank"));
+      let s = { ...r, search: this.input.value };
+      t.classList.add("ac-active"), setTimeout(() => {
+        this.controller().hide("result-selected"), s.action ? s.action(s) : (o.action(s), o.newTab && (s.url ? this.tabWindow.location.href = s.url : this.tabWindow.close()));
+        var i = new Event("change", { bubbles: true });
+        this.input.dispatchEvent(i), this.controller().clear("result-selected");
+        let u = new Event("result-selected");
+        u.detail = s, this.input.dispatchEvent(u);
+      }, 0);
+    }
+  }
+  setText(t) {
+    this.container.autoCompleteInput || (this.container.value = t.text), this.controller().hide("settext");
+  }
+  resultClick(t) {
+    this.selectResult(t.target.closest(`.${Z.item}`));
+  }
+  blurHandler() {
+    setTimeout(() => {
+      this.resultClicked || this.controller().clear("blurred"), this.resultClicked = false;
+    }, 100);
+  }
+  clear() {
+    this.settings.debug || this.resultsDiv && (this.resultsDiv.innerHTML = "", this.controller().hide("clear"), this.cacheTmr && clearTimeout(this.cacheTmr), this.cacheTmr = setTimeout(() => {
+      this.caches.clear();
+    }, 60 * 1e3 * 5));
+  }
+  show() {
+    if (!this.resultsDiv.classList.contains("ac-active")) {
+      let t = this.getViewBounds();
+      this.resultsDiv.style.position = "absolute", t.rect.width > 100 && (this.resultsDiv.style.width = `${t.rect.width}px`), this.settings.direction = this.settings.direction ?? t.suggestedDirection, this.resultsDiv.setAttribute("data-direction", this.settings.direction), this.settings.direction === "up" ? (this.resultsDiv.style.top = "unset", this.resultsDiv.style.bottom = `${t.rect.height + 20}px`, this.rowIndex = this.acItems.length) : (this.resultsDiv.style.bottom = "unset", this.resultsDiv.style.top = `${t.rect.height}px`, this.rowIndex = -1), this.resultsDiv.style.maxWidth = "unset", this.resultsDiv.classList.toggle("ac-active", true);
+    }
+  }
+  getViewBounds() {
+    let t = this.input.getBoundingClientRect();
+    return { rect: t, suggestedDirection: t.top + t.height + 500 > window.innerHeight ? "up" : "down" };
+  }
+  hide() {
+    this.resultsDiv.classList.toggle("ac-active", false);
+  }
+  empty() {
+    this.resultsDiv.innerHTML = `<div class="ac-empty">${this.settings.emptyResultsText}</div>`, this.controller().show();
+  }
+  inputHandler(t) {
+    this.cacheTmr && clearTimeout(this.cacheTmr);
+    let n = { search: t.target.value, categories: this.categories };
+    this.container.classList.add("search-running"), this.getItems(n, t).then((r) => {
+      this.controller().clear("new-results"), this.resultsHandler(r, n), this.container.classList.remove("search-running");
+    });
+  }
+  keyDownHandler(t) {
+    switch (t.key) {
+      case "Enter":
+        t.stopPropagation(), t.preventDefault();
+        break;
+      case "ArrowDown":
+        W(this.moveResult(1));
+        break;
+      case "ArrowUp":
+        W(this.moveResult(-1));
+        break;
+    }
+  }
+  keyUpHandler(t) {
+    switch (t.key) {
+      case "Escape":
+        this.controller().hide("escape");
+        break;
+      case "Enter":
+        this.getSelectedDiv() && (this.container.preventEnter = true, t.stopPropagation(), t.preventDefault(), this.selectResult(), setTimeout(() => {
+          this.container.preventEnter = false;
+        }, 10));
+        break;
+      default:
+        break;
+    }
+  }
+  focusHandler(t) {
+    this.controller().clear("focus");
+    let n = t.target.value;
+    this.suggest(n, t);
+  }
+  suggest(t, n) {
+    this.input.focus();
+    let r = { suggest: true, search: t || "", categories: this.categories };
+    this.getItems(r, n).then((o) => {
+      this.input.dispatchEvent(new CustomEvent("show-results", { detail: { results: o } })), this.resultsHandler(o, r);
+    });
+  }
+  sort(t, n) {
+    return t.sort((r, o) => {
+      let s = n.categories[r.category], i = n.categories[o.category], u = typeof s.sortIndex == "function" ? s.sortIndex(n) : s.sortIndex ?? 0;
+      return (typeof i.sortIndex == "function" ? i.sortIndex(n) : i.sortIndex ?? 0) > u ? 1 : -1;
+    });
+  }
+  resultsHandler(t, n) {
+    this.results = t, this.rowIndex = -1;
+    let r = 0, o = (s, i) => `
+      <div title="${i.tooltip || ""}" data-index="${r}" class="${`${Z.item} cat-${i.category} ${i.class ?? ""}`.trim()}">
+        ${this.handleImageOrIcon(i)}
+        <span class="text">${this.formatResultItem(i, n, s)}</span>
+        ${this.settings.hideCategory ? "" : `<span class="category">${i.category || ""}</span>`}
+      </div>`;
+    t.forEach((s) => {
+      let i = n.categories[s.category] || {};
+      s.element ? this.resultsDiv.appendChild(s.element) : (s = typeof s == "string" ? { text: s } : s, this.resultsDiv.appendChild(pe(o(i, s))[0])), r++;
+    }), t.length ? (this.acItems = this.resultsDiv.querySelectorAll(".ac-itm"), this.controller().show()) : n.search.length && this.controller().empty();
+  }
+  handleImageOrIcon(t) {
+    return t.image ? `<img src="${t.image}"/>` : typeof this.settings.iconHandler == "function" ? this.settings.iconHandler(t) : `<svg-icon icon="${t.icon}"></svg-icon>`;
+  }
+  formatResultItem(t, n, r) {
+    let o = typeof t == "string" ? { text: t } : t, s = o.text;
+    return n.search && (s = s.replace("%search%", n.search), o.description = o.description?.replace("%search%", n.search)), s = this.highlight(s, n.search), o.description && (s = `<div>${s}</div><small>${o.description}</small>`), r.format && (s = r.format({ item: o, result: s, options: n })), s;
+  }
+  highlight(t, n) {
+    var r = new RegExp("(" + n + ")", "gi");
+    return t.replace(r, '<span class="txt-hl">$1</span>');
+  }
+  async getItems(t, n) {
+    this.aborter && this.aborter.abort();
+    let r = this.caches.get(t.search);
+    if (r)
+      return r;
+    let o = this.settings.map, s = (c) => (typeof c == "string" && (c = { text: c }), c), i = (c) => o ? c.map((d) => ({ text: d[o] })) : c.map((d) => s(d)), u = (c) => (this.settings.max && this.settings.max > 0 && (c.length = this.settings.max), c);
+    return this.aborter = new AbortController(), this.aborterSignal = this.aborter.signal, new Promise((c) => {
+      let d = (l) => {
+        l = this.sort(l, t), this.settings.cache !== false && this.caches.set(t.search, l), c(l);
+      };
+      if (fe(this.items)) {
+        if (this.settings.minlength > 0 && (!t.search || t.search.length < this.settings.minlength)) {
+          d([]);
+          return;
+        }
+        let l = this.formatSearch(this.items, t);
+        fetch(l).then((a) => {
+          if (a.status === 200) {
+            a.json().then((m) => {
+              m = i(m), d(u(m.filter((h) => this.isMatch(t, h))));
+            });
+            return;
+          }
+          throw Error(`HTTP error ${a.status} - ${l}`);
+        });
+      } else if (Array.isArray(this.items)) {
+        let l = true;
+        this.items = this.items.map((a) => typeof a == "string" ? { text: a } : (l = false, a)), l && this.container.classList.add("simple"), d(u(i(this.items)));
+      } else if (typeof this.items == "function")
+        t.control = this.container, Promise.resolve(this.items(t, n)).then((a) => {
+          a = a.map((m) => s(m)), a = i(a), d(a);
+        });
+      else
+        return d(Promise.resolve(this.items.apply(this, t)));
+    });
+  }
+  async items(t) {
+    let n = [];
+    t.results = [], t.signal = this.aborterSignal;
+    for (var r in t.categories) {
+      let o = t.categories[r];
+      if (o.trigger = o.trigger ?? (() => true), t.results = n, o.trigger(t)) {
+        let s = [];
+        try {
+          s = await o.getItems(t);
+        } catch (i) {
+          console.warn(`Error loading items for omniBox category '${r}'.`, i);
+        }
+        n = n.concat(s.map((i) => (i.category = r, i)));
+      }
+    }
+    return n;
+  }
+  formatSearch(t, n) {
+    return t.indexOf("%search%") ? t.replace("%search%", n.search || "") : t + "?" + this.createQueryParam(n);
+  }
+  createQueryParam(t) {
+    let n = t.suggest ? "&suggest=true" : "";
+    return `q=${t.text}${n}`;
+  }
+  isMatch(t, n) {
+    return n.text?.indexOf("%search%") >= 0 ? true : t.search ? n.text?.toLowerCase().indexOf(t.search.toLowerCase()) >= 0 : t.suggest;
+  }
+  static textFilter(t, n) {
+    return function(r) {
+      if (!t.search)
+        return true;
+      if (r.hidden)
+        return false;
+      let s = (n ? r[n] : r).match(new RegExp(t.search, "gi"));
+      if (s)
+        return s;
+      if (r.config?.tags)
+        return r.config.tags.some((i) => i.match(new RegExp(t.search, "gi")));
+    };
+  }
+};
+var J = class {
   constructor() {
     this._mode = "static", this._staticPaths = { tokens: "/assets/pds/styles/pds-tokens.css.js", primitives: "/assets/pds/styles/pds-primitives.css.js", components: "/assets/pds/styles/pds-components.css.js", utilities: "/assets/pds/styles/pds-utilities.css.js", styles: "/assets/pds/styles/pds-styles.css.js" };
   }
   setLiveMode() {
     this._mode = "live";
   }
-  setStaticMode(e = {}) {
-    this._mode = "static", this._staticPaths = { ...this._staticPaths, ...e };
+  setStaticMode(t = {}) {
+    this._mode = "static", this._staticPaths = { ...this._staticPaths, ...t };
   }
-  async getStylesheet(e) {
+  async getStylesheet(t) {
     if (this._mode === "live")
       return null;
     try {
-      return (await import(this._staticPaths[e]))[e];
-    } catch (s) {
-      console.error(`[PDS Registry] Failed to load static ${e}:`, s), console.error(`[PDS Registry] Looking for: ${this._staticPaths[e]}`), console.error("[PDS Registry] Make sure you've run 'npm run pds:build' and configured PDS.start() with the correct static.root path");
-      let n = new CSSStyleSheet();
-      return n.replaceSync("/* Failed to load " + e + " */"), n;
+      return (await import(this._staticPaths[t]))[t];
+    } catch (n) {
+      console.error(`[PDS Registry] Failed to load static ${t}:`, n), console.error(`[PDS Registry] Looking for: ${this._staticPaths[t]}`), console.error("[PDS Registry] Make sure you've run 'npm run pds:build' and configured PDS.start() with the correct static.root path");
+      let r = new CSSStyleSheet();
+      return r.replaceSync("/* Failed to load " + t + " */"), r;
     }
   }
   get mode() {
@@ -163,618 +440,146 @@ var me = class {
     return this._mode === "live";
   }
 };
-var F = new me();
-async function Oe(t3, e = [], s = null) {
+var U = new J();
+async function ye(e2, t = [], n = null) {
   try {
-    let n = s?.primitivesStylesheet ? s.primitivesStylesheet : await F.getStylesheet("primitives");
-    t3.adoptedStyleSheets = [n, ...e];
-  } catch (n) {
-    let r = t3.host?.tagName?.toLowerCase() || "unknown";
-    console.error(`[PDS Adopter] <${r}> failed to adopt primitives:`, n), t3.adoptedStyleSheets = e;
+    let r = n?.primitivesStylesheet ? n.primitivesStylesheet : await U.getStylesheet("primitives");
+    e2.adoptedStyleSheets = [r, ...t];
+  } catch (r) {
+    let o = e2.host?.tagName?.toLowerCase() || "unknown";
+    console.error(`[PDS Adopter] <${o}> failed to adopt primitives:`, r), e2.adoptedStyleSheets = t;
   }
 }
-async function Ne(t3, e = ["primitives"], s = [], n = null) {
+async function ge(e2, t = ["primitives"], n = [], r = null) {
   try {
-    let o = (await Promise.all(e.map(async (i) => {
-      if (n)
+    let s = (await Promise.all(t.map(async (i) => {
+      if (r)
         switch (i) {
           case "tokens":
-            return n.tokensStylesheet;
+            return r.tokensStylesheet;
           case "primitives":
-            return n.primitivesStylesheet;
+            return r.primitivesStylesheet;
           case "components":
-            return n.componentsStylesheet;
+            return r.componentsStylesheet;
           case "utilities":
-            return n.utilitiesStylesheet;
+            return r.utilitiesStylesheet;
           default:
             break;
         }
-      return F.getStylesheet(i);
+      return U.getStylesheet(i);
     }))).filter((i) => i !== null);
-    t3.adoptedStyleSheets = [...o, ...s];
-  } catch (r) {
-    let o = t3.host?.tagName?.toLowerCase() || "unknown";
-    console.error(`[PDS Adopter] <${o}> failed to adopt layers:`, r), t3.adoptedStyleSheets = s;
+    e2.adoptedStyleSheets = [...s, ...n];
+  } catch (o) {
+    let s = e2.host?.tagName?.toLowerCase() || "unknown";
+    console.error(`[PDS Adopter] <${s}> failed to adopt layers:`, o), e2.adoptedStyleSheets = n;
   }
 }
-function je(t3) {
-  let e = new CSSStyleSheet();
-  return e.replaceSync(t3), e;
+function be(e2) {
+  let t = new CSSStyleSheet();
+  return t.replaceSync(e2), t;
 }
-var ie = globalThis;
-var ce = ie.ShadowRoot && (ie.ShadyCSS === void 0 || ie.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype;
-var He = Symbol();
-var qe = /* @__PURE__ */ new WeakMap();
-var ae = class {
-  constructor(e, s, n) {
-    if (this._$cssResult$ = true, n !== He)
-      throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
-    this.cssText = e, this.t = s;
-  }
-  get styleSheet() {
-    let e = this.o, s = this.t;
-    if (ce && e === void 0) {
-      let n = s !== void 0 && s.length === 1;
-      n && (e = qe.get(s)), e === void 0 && ((this.o = e = new CSSStyleSheet()).replaceSync(this.cssText), n && qe.set(s, e));
-    }
-    return e;
-  }
-  toString() {
-    return this.cssText;
-  }
-};
-var Ie = (t3) => new ae(typeof t3 == "string" ? t3 : t3 + "", void 0, He);
-var ze = (t3, e) => {
-  if (ce)
-    t3.adoptedStyleSheets = e.map((s) => s instanceof CSSStyleSheet ? s : s.styleSheet);
-  else
-    for (let s of e) {
-      let n = document.createElement("style"), r = ie.litNonce;
-      r !== void 0 && n.setAttribute("nonce", r), n.textContent = s.cssText, t3.appendChild(n);
-    }
-};
-var ye = ce ? (t3) => t3 : (t3) => t3 instanceof CSSStyleSheet ? ((e) => {
-  let s = "";
-  for (let n of e.cssRules)
-    s += n.cssText;
-  return Ie(s);
-})(t3) : t3;
-var { is: wt, defineProperty: _t, getOwnPropertyDescriptor: St, getOwnPropertyNames: At, getOwnPropertySymbols: Et, getPrototypeOf: vt } = Object;
-var le = globalThis;
-var Be = le.trustedTypes;
-var Lt = Be ? Be.emptyScript : "";
-var Ct = le.reactiveElementPolyfillSupport;
-var J = (t3, e) => t3;
-var ge = { toAttribute(t3, e) {
-  switch (e) {
-    case Boolean:
-      t3 = t3 ? Lt : null;
-      break;
-    case Object:
-    case Array:
-      t3 = t3 == null ? t3 : JSON.stringify(t3);
-  }
-  return t3;
-}, fromAttribute(t3, e) {
-  let s = t3;
-  switch (e) {
-    case Boolean:
-      s = t3 !== null;
-      break;
-    case Number:
-      s = t3 === null ? null : Number(t3);
-      break;
-    case Object:
-    case Array:
-      try {
-        s = JSON.parse(t3);
-      } catch {
-        s = null;
-      }
-  }
-  return s;
+var we = { FontWeights: { light: 300, normal: 400, medium: 500, semibold: 600, bold: 700 }, LineHeights: { tight: 1.25, normal: 1.5, relaxed: 1.75 }, BorderWidths: { hairline: 0.5, thin: 1, medium: 2, thick: 3 }, RadiusSizes: { none: 0, small: 4, medium: 8, large: 16, xlarge: 24, xxlarge: 32 }, ShadowDepths: { none: "none", light: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", medium: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)", deep: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)", extreme: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }, TransitionSpeeds: { fast: 150, normal: 250, slow: 350 }, AnimationEasings: { linear: "linear", ease: "ease", "ease-in": "ease-in", "ease-out": "ease-out", "ease-in-out": "ease-in-out", bounce: "cubic-bezier(0.68, -0.55, 0.265, 1.55)" }, TouchTargetSizes: { compact: 36, standard: 44, comfortable: 48, spacious: 56 }, LinkStyles: { inline: "inline", block: "block", button: "button" }, FocusStyles: { ring: "ring", outline: "outline", border: "border", glow: "glow" }, TabSizes: { compact: 2, standard: 4, wide: 8 }, SelectIcons: { chevron: "chevron", arrow: "arrow", caret: "caret", none: "none" }, IconSizes: { xs: 16, sm: 20, md: 24, lg: 32, xl: 48, "2xl": 64, "3xl": 96 } };
+var ve = { mode: "live", preset: "default", autoDefine: { predefine: ["pds-icon", "pds-drawer", "pds-toaster"] }, log(e2, t, ...n) {
+  console[e2](t, ...n);
 } };
-var We = (t3, e) => !wt(t3, e);
-var Fe = { attribute: true, type: String, converter: ge, reflect: false, useDefault: false, hasChanged: We };
-Symbol.metadata ??= Symbol("metadata"), le.litPropertyMetadata ??= /* @__PURE__ */ new WeakMap();
-var P = class extends HTMLElement {
-  static addInitializer(e) {
-    this._$Ei(), (this.l ??= []).push(e);
-  }
-  static get observedAttributes() {
-    return this.finalize(), this._$Eh && [...this._$Eh.keys()];
-  }
-  static createProperty(e, s = Fe) {
-    if (s.state && (s.attribute = false), this._$Ei(), this.prototype.hasOwnProperty(e) && ((s = Object.create(s)).wrapped = true), this.elementProperties.set(e, s), !s.noAccessor) {
-      let n = Symbol(), r = this.getPropertyDescriptor(e, n, s);
-      r !== void 0 && _t(this.prototype, e, r);
-    }
-  }
-  static getPropertyDescriptor(e, s, n) {
-    let { get: r, set: o } = St(this.prototype, e) ?? { get() {
-      return this[s];
-    }, set(i) {
-      this[s] = i;
-    } };
-    return { get: r, set(i) {
-      let a = r?.call(this);
-      o?.call(this, i), this.requestUpdate(e, a, n);
-    }, configurable: true, enumerable: true };
-  }
-  static getPropertyOptions(e) {
-    return this.elementProperties.get(e) ?? Fe;
-  }
-  static _$Ei() {
-    if (this.hasOwnProperty(J("elementProperties")))
-      return;
-    let e = vt(this);
-    e.finalize(), e.l !== void 0 && (this.l = [...e.l]), this.elementProperties = new Map(e.elementProperties);
-  }
-  static finalize() {
-    if (this.hasOwnProperty(J("finalized")))
-      return;
-    if (this.finalized = true, this._$Ei(), this.hasOwnProperty(J("properties"))) {
-      let s = this.properties, n = [...At(s), ...Et(s)];
-      for (let r of n)
-        this.createProperty(r, s[r]);
-    }
-    let e = this[Symbol.metadata];
-    if (e !== null) {
-      let s = litPropertyMetadata.get(e);
-      if (s !== void 0)
-        for (let [n, r] of s)
-          this.elementProperties.set(n, r);
-    }
-    this._$Eh = /* @__PURE__ */ new Map();
-    for (let [s, n] of this.elementProperties) {
-      let r = this._$Eu(s, n);
-      r !== void 0 && this._$Eh.set(r, s);
-    }
-    this.elementStyles = this.finalizeStyles(this.styles);
-  }
-  static finalizeStyles(e) {
-    let s = [];
-    if (Array.isArray(e)) {
-      let n = new Set(e.flat(1 / 0).reverse());
-      for (let r of n)
-        s.unshift(ye(r));
-    } else
-      e !== void 0 && s.push(ye(e));
-    return s;
-  }
-  static _$Eu(e, s) {
-    let n = s.attribute;
-    return n === false ? void 0 : typeof n == "string" ? n : typeof e == "string" ? e.toLowerCase() : void 0;
-  }
-  constructor() {
-    super(), this._$Ep = void 0, this.isUpdatePending = false, this.hasUpdated = false, this._$Em = null, this._$Ev();
-  }
-  _$Ev() {
-    this._$ES = new Promise((e) => this.enableUpdating = e), this._$AL = /* @__PURE__ */ new Map(), this._$E_(), this.requestUpdate(), this.constructor.l?.forEach((e) => e(this));
-  }
-  addController(e) {
-    (this._$EO ??= /* @__PURE__ */ new Set()).add(e), this.renderRoot !== void 0 && this.isConnected && e.hostConnected?.();
-  }
-  removeController(e) {
-    this._$EO?.delete(e);
-  }
-  _$E_() {
-    let e = /* @__PURE__ */ new Map(), s = this.constructor.elementProperties;
-    for (let n of s.keys())
-      this.hasOwnProperty(n) && (e.set(n, this[n]), delete this[n]);
-    e.size > 0 && (this._$Ep = e);
-  }
-  createRenderRoot() {
-    let e = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
-    return ze(e, this.constructor.elementStyles), e;
-  }
-  connectedCallback() {
-    this.renderRoot ??= this.createRenderRoot(), this.enableUpdating(true), this._$EO?.forEach((e) => e.hostConnected?.());
-  }
-  enableUpdating(e) {
-  }
-  disconnectedCallback() {
-    this._$EO?.forEach((e) => e.hostDisconnected?.());
-  }
-  attributeChangedCallback(e, s, n) {
-    this._$AK(e, n);
-  }
-  _$ET(e, s) {
-    let n = this.constructor.elementProperties.get(e), r = this.constructor._$Eu(e, n);
-    if (r !== void 0 && n.reflect === true) {
-      let o = (n.converter?.toAttribute !== void 0 ? n.converter : ge).toAttribute(s, n.type);
-      this._$Em = e, o == null ? this.removeAttribute(r) : this.setAttribute(r, o), this._$Em = null;
-    }
-  }
-  _$AK(e, s) {
-    let n = this.constructor, r = n._$Eh.get(e);
-    if (r !== void 0 && this._$Em !== r) {
-      let o = n.getPropertyOptions(r), i = typeof o.converter == "function" ? { fromAttribute: o.converter } : o.converter?.fromAttribute !== void 0 ? o.converter : ge;
-      this._$Em = r;
-      let a = i.fromAttribute(s, o.type);
-      this[r] = a ?? this._$Ej?.get(r) ?? a, this._$Em = null;
-    }
-  }
-  requestUpdate(e, s, n) {
-    if (e !== void 0) {
-      let r = this.constructor, o = this[e];
-      if (n ??= r.getPropertyOptions(e), !((n.hasChanged ?? We)(o, s) || n.useDefault && n.reflect && o === this._$Ej?.get(e) && !this.hasAttribute(r._$Eu(e, n))))
-        return;
-      this.C(e, s, n);
-    }
-    this.isUpdatePending === false && (this._$ES = this._$EP());
-  }
-  C(e, s, { useDefault: n, reflect: r, wrapped: o }, i) {
-    n && !(this._$Ej ??= /* @__PURE__ */ new Map()).has(e) && (this._$Ej.set(e, i ?? s ?? this[e]), o !== true || i !== void 0) || (this._$AL.has(e) || (this.hasUpdated || n || (s = void 0), this._$AL.set(e, s)), r === true && this._$Em !== e && (this._$Eq ??= /* @__PURE__ */ new Set()).add(e));
-  }
-  async _$EP() {
-    this.isUpdatePending = true;
-    try {
-      await this._$ES;
-    } catch (s) {
-      Promise.reject(s);
-    }
-    let e = this.scheduleUpdate();
-    return e != null && await e, !this.isUpdatePending;
-  }
-  scheduleUpdate() {
-    return this.performUpdate();
-  }
-  performUpdate() {
-    if (!this.isUpdatePending)
-      return;
-    if (!this.hasUpdated) {
-      if (this.renderRoot ??= this.createRenderRoot(), this._$Ep) {
-        for (let [r, o] of this._$Ep)
-          this[r] = o;
-        this._$Ep = void 0;
-      }
-      let n = this.constructor.elementProperties;
-      if (n.size > 0)
-        for (let [r, o] of n) {
-          let { wrapped: i } = o, a = this[r];
-          i !== true || this._$AL.has(r) || a === void 0 || this.C(r, void 0, o, a);
-        }
-    }
-    let e = false, s = this._$AL;
-    try {
-      e = this.shouldUpdate(s), e ? (this.willUpdate(s), this._$EO?.forEach((n) => n.hostUpdate?.()), this.update(s)) : this._$EM();
-    } catch (n) {
-      throw e = false, this._$EM(), n;
-    }
-    e && this._$AE(s);
-  }
-  willUpdate(e) {
-  }
-  _$AE(e) {
-    this._$EO?.forEach((s) => s.hostUpdated?.()), this.hasUpdated || (this.hasUpdated = true, this.firstUpdated(e)), this.updated(e);
-  }
-  _$EM() {
-    this._$AL = /* @__PURE__ */ new Map(), this.isUpdatePending = false;
-  }
-  get updateComplete() {
-    return this.getUpdateComplete();
-  }
-  getUpdateComplete() {
-    return this._$ES;
-  }
-  shouldUpdate(e) {
-    return true;
-  }
-  update(e) {
-    this._$Eq &&= this._$Eq.forEach((s) => this._$ET(s, this[s])), this._$EM();
-  }
-  updated(e) {
-  }
-  firstUpdated(e) {
-  }
-};
-P.elementStyles = [], P.shadowRootOptions = { mode: "open" }, P[J("elementProperties")] = /* @__PURE__ */ new Map(), P[J("finalized")] = /* @__PURE__ */ new Map(), Ct?.({ ReactiveElement: P }), (le.reactiveElementVersions ??= []).push("2.1.1");
-var Ee = globalThis;
-var de = Ee.trustedTypes;
-var Ve = de ? de.createPolicy("lit-html", { createHTML: (t3) => t3 }) : void 0;
-var Xe = "$lit$";
-var k = `lit$${Math.random().toFixed(9).slice(2)}$`;
-var Ye = "?" + k;
-var xt = `<${Ye}>`;
-var O = document;
-var X = () => O.createComment("");
-var Y = (t3) => t3 === null || typeof t3 != "object" && typeof t3 != "function";
-var ve = Array.isArray;
-var Rt = (t3) => ve(t3) || typeof t3?.[Symbol.iterator] == "function";
-var be = `[ 	
-\f\r]`;
-var Q = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g;
-var Ke = /-->/g;
-var Ge = />/g;
-var U = RegExp(`>|${be}(?:([^\\s"'>=/]+)(${be}*=${be}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g");
-var Ze = /'/g;
-var Je = /"/g;
-var et = /^(?:script|style|textarea|title)$/i;
-var Le = (t3) => (e, ...s) => ({ _$litType$: t3, strings: e, values: s });
-var cs = Le(1);
-var ls = Le(2);
-var ds = Le(3);
-var N = Symbol.for("lit-noChange");
-var w = Symbol.for("lit-nothing");
-var Qe = /* @__PURE__ */ new WeakMap();
-var T = O.createTreeWalker(O, 129);
-function tt(t3, e) {
-  if (!ve(t3) || !t3.hasOwnProperty("raw"))
-    throw Error("invalid template strings array");
-  return Ve !== void 0 ? Ve.createHTML(e) : e;
+var ee = {};
+ue(ee, { deepMerge: () => xe, fragmentFromTemplateLike: () => X, isObject: () => B, parseHTML: () => Y });
+function B(e2) {
+  return e2 && typeof e2 == "object" && !Array.isArray(e2);
 }
-var Pt = (t3, e) => {
-  let s = t3.length - 1, n = [], r, o = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", i = Q;
-  for (let a = 0; a < s; a++) {
-    let c = t3[a], d, l, u = -1, f = 0;
-    for (; f < c.length && (i.lastIndex = f, l = i.exec(c), l !== null); )
-      f = i.lastIndex, i === Q ? l[1] === "!--" ? i = Ke : l[1] !== void 0 ? i = Ge : l[2] !== void 0 ? (et.test(l[2]) && (r = RegExp("</" + l[2], "g")), i = U) : l[3] !== void 0 && (i = U) : i === U ? l[0] === ">" ? (i = r ?? Q, u = -1) : l[1] === void 0 ? u = -2 : (u = i.lastIndex - l[2].length, d = l[1], i = l[3] === void 0 ? U : l[3] === '"' ? Je : Ze) : i === Je || i === Ze ? i = U : i === Ke || i === Ge ? i = Q : (i = U, r = void 0);
-    let m = i === U && t3[a + 1].startsWith("/>") ? " " : "";
-    o += i === Q ? c + xt : u >= 0 ? (n.push(d), c.slice(0, u) + Xe + c.slice(u) + k + m) : c + k + (u === -2 ? a : m);
-  }
-  return [tt(t3, o + (t3[s] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), n];
-};
-var ee = class t {
-  constructor({ strings: e, _$litType$: s }, n) {
-    let r;
-    this.parts = [];
-    let o = 0, i = 0, a = e.length - 1, c = this.parts, [d, l] = Pt(e, s);
-    if (this.el = t.createElement(d, n), T.currentNode = this.el.content, s === 2 || s === 3) {
-      let u = this.el.content.firstChild;
-      u.replaceWith(...u.childNodes);
-    }
-    for (; (r = T.nextNode()) !== null && c.length < a; ) {
-      if (r.nodeType === 1) {
-        if (r.hasAttributes())
-          for (let u of r.getAttributeNames())
-            if (u.endsWith(Xe)) {
-              let f = l[i++], m = r.getAttribute(u).split(k), $ = /([.?@])?(.*)/.exec(f);
-              c.push({ type: 1, index: o, name: $[2], strings: m, ctor: $[1] === "." ? we : $[1] === "?" ? _e : $[1] === "@" ? Se : V }), r.removeAttribute(u);
-            } else
-              u.startsWith(k) && (c.push({ type: 6, index: o }), r.removeAttribute(u));
-        if (et.test(r.tagName)) {
-          let u = r.textContent.split(k), f = u.length - 1;
-          if (f > 0) {
-            r.textContent = de ? de.emptyScript : "";
-            for (let m = 0; m < f; m++)
-              r.append(u[m], X()), T.nextNode(), c.push({ type: 2, index: ++o });
-            r.append(u[f], X());
-          }
-        }
-      } else if (r.nodeType === 8)
-        if (r.data === Ye)
-          c.push({ type: 2, index: o });
-        else {
-          let u = -1;
-          for (; (u = r.data.indexOf(k, u + 1)) !== -1; )
-            c.push({ type: 7, index: o }), u += k.length - 1;
-        }
-      o++;
-    }
-  }
-  static createElement(e, s) {
-    let n = O.createElement("template");
-    return n.innerHTML = e, n;
-  }
-};
-function W(t3, e, s = t3, n) {
-  if (e === N)
-    return e;
-  let r = n !== void 0 ? s._$Co?.[n] : s._$Cl, o = Y(e) ? void 0 : e._$litDirective$;
-  return r?.constructor !== o && (r?._$AO?.(false), o === void 0 ? r = void 0 : (r = new o(t3), r._$AT(t3, s, n)), n !== void 0 ? (s._$Co ??= [])[n] = r : s._$Cl = r), r !== void 0 && (e = W(t3, r._$AS(t3, e.values), r, n)), e;
+function xe(e2, t) {
+  let n = { ...e2 };
+  return B(e2) && B(t) && Object.keys(t).forEach((r) => {
+    B(t[r]) ? r in e2 ? n[r] = xe(e2[r], t[r]) : Object.assign(n, { [r]: t[r] }) : Object.assign(n, { [r]: t[r] });
+  }), n;
 }
-var $e = class {
-  constructor(e, s) {
-    this._$AV = [], this._$AN = void 0, this._$AD = e, this._$AM = s;
-  }
-  get parentNode() {
-    return this._$AM.parentNode;
-  }
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-  u(e) {
-    let { el: { content: s }, parts: n } = this._$AD, r = (e?.creationScope ?? O).importNode(s, true);
-    T.currentNode = r;
-    let o = T.nextNode(), i = 0, a = 0, c = n[0];
-    for (; c !== void 0; ) {
-      if (i === c.index) {
-        let d;
-        c.type === 2 ? d = new te(o, o.nextSibling, this, e) : c.type === 1 ? d = new c.ctor(o, c.name, c.strings, this, e) : c.type === 6 && (d = new Ae(o, this, e)), this._$AV.push(d), c = n[++a];
-      }
-      i !== c?.index && (o = T.nextNode(), i++);
+function X(e2) {
+  let t = Array.isArray(e2?.strings) ? e2.strings : [], n = Array.isArray(e2?.values) ? e2.values : [], r = /* @__PURE__ */ new Set(), o = [], s = /(\s)(\.[\w-]+)=\s*$/;
+  for (let a = 0; a < t.length; a += 1) {
+    let m = t[a] ?? "", h = m.match(s);
+    if (h && a < n.length) {
+      let v = h[2].slice(1), g = `pds-val-${a}`;
+      m = m.replace(s, `$1data-pds-prop="${v}:${g}"`), r.add(a);
     }
-    return T.currentNode = O, r;
+    o.push(m), a < n.length && !r.has(a) && o.push(`<!--pds-val-${a}-->`);
   }
-  p(e) {
-    let s = 0;
-    for (let n of this._$AV)
-      n !== void 0 && (n.strings !== void 0 ? (n._$AI(e, n, s), s += n.strings.length - 2) : n._$AI(e[s])), s++;
-  }
-};
-var te = class t2 {
-  get _$AU() {
-    return this._$AM?._$AU ?? this._$Cv;
-  }
-  constructor(e, s, n, r) {
-    this.type = 2, this._$AH = w, this._$AN = void 0, this._$AA = e, this._$AB = s, this._$AM = n, this.options = r, this._$Cv = r?.isConnected ?? true;
-  }
-  get parentNode() {
-    let e = this._$AA.parentNode, s = this._$AM;
-    return s !== void 0 && e?.nodeType === 11 && (e = s.parentNode), e;
-  }
-  get startNode() {
-    return this._$AA;
-  }
-  get endNode() {
-    return this._$AB;
-  }
-  _$AI(e, s = this) {
-    e = W(this, e, s), Y(e) ? e === w || e == null || e === "" ? (this._$AH !== w && this._$AR(), this._$AH = w) : e !== this._$AH && e !== N && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Rt(e) ? this.k(e) : this._(e);
-  }
-  O(e) {
-    return this._$AA.parentNode.insertBefore(e, this._$AB);
-  }
-  T(e) {
-    this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
-  }
-  _(e) {
-    this._$AH !== w && Y(this._$AH) ? this._$AA.nextSibling.data = e : this.T(O.createTextNode(e)), this._$AH = e;
-  }
-  $(e) {
-    let { values: s, _$litType$: n } = e, r = typeof n == "number" ? this._$AC(e) : (n.el === void 0 && (n.el = ee.createElement(tt(n.h, n.h[0]), this.options)), n);
-    if (this._$AH?._$AD === r)
-      this._$AH.p(s);
-    else {
-      let o = new $e(r, this), i = o.u(this.options);
-      o.p(s), this.T(i), this._$AH = o;
-    }
-  }
-  _$AC(e) {
-    let s = Qe.get(e.strings);
-    return s === void 0 && Qe.set(e.strings, s = new ee(e)), s;
-  }
-  k(e) {
-    ve(this._$AH) || (this._$AH = [], this._$AR());
-    let s = this._$AH, n, r = 0;
-    for (let o of e)
-      r === s.length ? s.push(n = new t2(this.O(X()), this.O(X()), this, this.options)) : n = s[r], n._$AI(o), r++;
-    r < s.length && (this._$AR(n && n._$AB.nextSibling, r), s.length = r);
-  }
-  _$AR(e = this._$AA.nextSibling, s) {
-    for (this._$AP?.(false, true, s); e !== this._$AB; ) {
-      let n = e.nextSibling;
-      e.remove(), e = n;
-    }
-  }
-  setConnected(e) {
-    this._$AM === void 0 && (this._$Cv = e, this._$AP?.(e));
-  }
-};
-var V = class {
-  get tagName() {
-    return this.element.tagName;
-  }
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-  constructor(e, s, n, r, o) {
-    this.type = 1, this._$AH = w, this._$AN = void 0, this.element = e, this.name = s, this._$AM = r, this.options = o, n.length > 2 || n[0] !== "" || n[1] !== "" ? (this._$AH = Array(n.length - 1).fill(new String()), this.strings = n) : this._$AH = w;
-  }
-  _$AI(e, s = this, n, r) {
-    let o = this.strings, i = false;
-    if (o === void 0)
-      e = W(this, e, s, 0), i = !Y(e) || e !== this._$AH && e !== N, i && (this._$AH = e);
-    else {
-      let a = e, c, d;
-      for (e = o[0], c = 0; c < o.length - 1; c++)
-        d = W(this, a[n + c], s, c), d === N && (d = this._$AH[c]), i ||= !Y(d) || d !== this._$AH[c], d === w ? e = w : e !== w && (e += (d ?? "") + o[c + 1]), this._$AH[c] = d;
-    }
-    i && !r && this.j(e);
-  }
-  j(e) {
-    e === w ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
-  }
-};
-var we = class extends V {
-  constructor() {
-    super(...arguments), this.type = 3;
-  }
-  j(e) {
-    this.element[this.name] = e === w ? void 0 : e;
-  }
-};
-var _e = class extends V {
-  constructor() {
-    super(...arguments), this.type = 4;
-  }
-  j(e) {
-    this.element.toggleAttribute(this.name, !!e && e !== w);
-  }
-};
-var Se = class extends V {
-  constructor(e, s, n, r, o) {
-    super(e, s, n, r, o), this.type = 5;
-  }
-  _$AI(e, s = this) {
-    if ((e = W(this, e, s, 0) ?? w) === N)
+  let i = document.createElement("template");
+  i.innerHTML = o.join("");
+  let u = (a, m) => {
+    let h = a.parentNode;
+    if (!h)
       return;
-    let n = this._$AH, r = e === w && n !== w || e.capture !== n.capture || e.once !== n.once || e.passive !== n.passive, o = e !== w && (n === w || r);
-    r && this.element.removeEventListener(this.name, this, n), o && this.element.addEventListener(this.name, this, e), this._$AH = e;
+    if (m == null) {
+      h.removeChild(a);
+      return;
+    }
+    let w = (v) => {
+      if (v != null) {
+        if (v instanceof Node) {
+          h.insertBefore(v, a);
+          return;
+        }
+        if (Array.isArray(v)) {
+          v.forEach((g) => w(g));
+          return;
+        }
+        h.insertBefore(document.createTextNode(String(v)), a);
+      }
+    };
+    w(m), h.removeChild(a);
+  }, c = document.createTreeWalker(i.content, NodeFilter.SHOW_COMMENT), d = [];
+  for (; c.nextNode(); ) {
+    let a = c.currentNode;
+    a?.nodeValue?.startsWith("pds-val-") && d.push(a);
   }
-  handleEvent(e) {
-    typeof this._$AH == "function" ? this._$AH.call(this.options?.host ?? this.element, e) : this._$AH.handleEvent(e);
+  return d.forEach((a) => {
+    let m = Number(a.nodeValue.replace("pds-val-", ""));
+    u(a, n[m]);
+  }), i.content.querySelectorAll("*").forEach((a) => {
+    let m = a.getAttribute("data-pds-prop");
+    if (!m)
+      return;
+    let [h, w] = m.split(":"), v = Number(String(w).replace("pds-val-", ""));
+    h && Number.isInteger(v) && (a[h] = n[v]), a.removeAttribute("data-pds-prop");
+  }), i.content;
+}
+function Y(e2) {
+  return new DOMParser().parseFromString(e2, "text/html").body.childNodes;
+}
+function te(e2, t) {
+  if (t == null)
+    return;
+  if (typeof t == "object" && Array.isArray(t.strings) && Array.isArray(t.values)) {
+    e2.appendChild(X(t));
+    return;
   }
-};
-var Ae = class {
-  constructor(e, s, n) {
-    this.element = e, this.type = 6, this._$AN = void 0, this._$AM = s, this.options = n;
+  if (t instanceof Node) {
+    e2.appendChild(t);
+    return;
   }
-  get _$AU() {
-    return this._$AM._$AU;
+  if (Array.isArray(t)) {
+    t.forEach((r) => te(e2, r));
+    return;
   }
-  _$AI(e) {
-    W(this, e);
-  }
-};
-var kt = Ee.litHtmlPolyfillSupport;
-kt?.(ee, te), (Ee.litHtmlVersions ??= []).push("3.3.1");
-var j = (t3, e, s) => {
-  let n = s?.renderBefore ?? e, r = n._$litPart$;
-  if (r === void 0) {
-    let o = s?.renderBefore ?? null;
-    n._$litPart$ = r = new te(e.insertBefore(X(), o), o, void 0, s ?? {});
-  }
-  return r._$AI(t3), r;
-};
-var Ce = globalThis;
-var K = class extends P {
-  constructor() {
-    super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
-  }
-  createRenderRoot() {
-    let e = super.createRenderRoot();
-    return this.renderOptions.renderBefore ??= e.firstChild, e;
-  }
-  update(e) {
-    let s = this.render();
-    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = j(s, this.renderRoot, this.renderOptions);
-  }
-  connectedCallback() {
-    super.connectedCallback(), this._$Do?.setConnected(true);
-  }
-  disconnectedCallback() {
-    super.disconnectedCallback(), this._$Do?.setConnected(false);
-  }
-  render() {
-    return N;
-  }
-};
-K._$litElement$ = true, K.finalized = true, Ce.litElementHydrateSupport?.({ LitElement: K });
-var Dt = Ce.litElementPolyfillSupport;
-Dt?.({ LitElement: K });
-(Ce.litElementVersions ??= []).push("4.2.1");
-var st = { mode: "live", preset: "default", autoDefine: { predefine: ["pds-icon", "pds-drawer", "pds-toaster"] }, log(t3, e, ...s) {
-  console[t3](e, ...s);
-} };
-async function nt(t3, e = {}) {
-  return e = { ...{ title: "Confirm", type: "confirm", buttons: { ok: { name: "OK", primary: true }, cancel: { name: "Cancel", cancel: true } } }, ...e }, new Promise((n) => {
-    let r = document.createElement("dialog");
-    st.options?.liquidGlassEffects && r.classList.add("liquid-glass"), e.size && r.classList.add(`dialog-${e.size}`), e.type && r.classList.add(`dialog-${e.type}`), e.class && (Array.isArray(e.class) ? r.classList.add(...e.class) : r.classList.add(e.class)), e.maxHeight && r.style.setProperty("--dialog-max-height", e.maxHeight);
-    let o = Object.entries(e.buttons).map(([a, c]) => {
+  let n = typeof t == "string" ? t : String(t);
+  e2.appendChild(document.createTextNode(n));
+}
+async function Se(e2, t = {}) {
+  return t = { ...{ title: "Confirm", type: "confirm", buttons: { ok: { name: "OK", primary: true }, cancel: { name: "Cancel", cancel: true } } }, ...t }, new Promise((r) => {
+    let o = document.createElement("dialog");
+    ve.options?.liquidGlassEffects && o.classList.add("liquid-glass"), t.size && o.classList.add(`dialog-${t.size}`), t.type && o.classList.add(`dialog-${t.type}`), t.class && (Array.isArray(t.class) ? o.classList.add(...t.class) : o.classList.add(t.class)), t.maxHeight && o.style.setProperty("--dialog-max-height", t.maxHeight);
+    let s = Object.entries(t.buttons).map(([u, c]) => {
       let d = c.primary ? "btn-primary btn-sm" : "btn-outline btn-sm";
-      return `<button type="${c.cancel ? "button" : "submit"}" class="${d}" value="${a}">${c.name}</button>`;
+      return `<button type="${c.cancel ? "button" : "submit"}" class="${d}" value="${u}">${c.name}</button>`;
     });
-    if (e.useForm) {
-      let a = document.createElement("div");
-      typeof t3 == "object" && t3._$litType$ ? j(t3, a) : typeof t3 == "string" ? a.textContent = t3 : j(t3, a);
-      let c = a.querySelector("form");
+    if (t.useForm) {
+      let u = document.createElement("div");
+      te(u, e2);
+      let c = u.querySelector("form");
       if (c) {
-        r.innerHTML = `
+        o.innerHTML = `
           <header>
-            <h2>${e.title}</h2>
+            <h2>${t.title}</h2>
           </header>
         `;
         let d = document.createElement("article");
@@ -782,482 +587,499 @@ async function nt(t3, e = {}) {
           d.appendChild(c.firstChild);
         c.appendChild(d);
         let l = document.createElement("footer");
-        l.innerHTML = o.join(""), c.appendChild(l), r.appendChild(c);
+        l.innerHTML = s.join(""), c.appendChild(l), o.appendChild(c);
       } else
-        r.innerHTML = `
+        o.innerHTML = `
           <header>
-            <h2>${e.title}</h2>
+            <h2>${t.title}</h2>
           </header>
           <article id="msg-container"></article>
           <footer>
-            ${o.join("")}
+            ${s.join("")}
           </footer>
-        `, r.querySelector("#msg-container").appendChild(a);
+        `, o.querySelector("#msg-container").appendChild(u);
     } else {
-      r.innerHTML = `
+      o.innerHTML = `
         <form method="dialog">
           <header>
-            <h2>${e.title}</h2>
+            <h2>${t.title}</h2>
           </header>
           
           <article id="msg-container"></article>
           
           <footer>
-            ${o.join("")}
+            ${s.join("")}
           </footer>
         </form>
       `;
-      let a = r.querySelector("#msg-container");
-      typeof t3 == "object" && t3._$litType$ ? j(t3, a) : typeof t3 == "string" ? a.textContent = t3 : j(t3, a);
+      let u = o.querySelector("#msg-container");
+      te(u, e2);
     }
-    r.addEventListener("click", (a) => {
-      a.target.closest('button[value="cancel"]') && (r.close(), n(false));
+    o.addEventListener("click", (u) => {
+      u.target.closest('button[value="cancel"]') && (o.close(), r(false));
     });
     let i = () => {
-      let a = r.querySelector("form");
-      a ? a.addEventListener("submit", (c) => {
+      let u = o.querySelector("form");
+      u ? u.addEventListener("submit", (c) => {
         c.preventDefault();
         let d;
-        e.useForm && c.submitter.value === "ok" ? (console.log("Found form:", a), console.log("Form elements:", a ? Array.from(a.elements) : "no form"), d = new FormData(a), console.log("FormData entries:", Array.from(d.entries()))) : d = c.submitter.value === "ok", r.close(), n(d);
+        t.useForm && c.submitter.value === "ok" ? (console.log("Found form:", u), console.log("Form elements:", u ? Array.from(u.elements) : "no form"), d = new FormData(u), console.log("FormData entries:", Array.from(d.entries()))) : d = c.submitter.value === "ok", o.close(), r(d);
       }) : requestAnimationFrame(i);
     };
-    i(), r.addEventListener("close", () => {
-      setTimeout(() => r.remove(), 200);
-    }), document.body.appendChild(r), typeof e.rendered == "function" && e.rendered(r), r.showModal();
+    i(), o.addEventListener("close", () => {
+      setTimeout(() => o.remove(), 200);
+    }), document.body.appendChild(o), typeof t.rendered == "function" && t.rendered(o), o.showModal();
   });
 }
-async function Mt() {
-  let t3 = document.querySelector("pds-toaster");
-  return t3 || (t3 = document.createElement("pds-toaster"), document.body.appendChild(t3), await customElements.whenDefined("pds-toaster")), t3;
+async function qe() {
+  let e2 = document.querySelector("pds-toaster");
+  return e2 || (e2 = document.createElement("pds-toaster"), document.body.appendChild(e2), await customElements.whenDefined("pds-toaster")), e2;
 }
-async function C(t3, e = {}) {
-  return (await Mt()).toast(t3, e);
+async function D(e2, t = {}) {
+  return (await qe()).toast(e2, t);
 }
-C.success = async function(t3, e = {}) {
-  return C(t3, { ...e, type: "success" });
+D.success = async function(e2, t = {}) {
+  return D(e2, { ...t, type: "success" });
 };
-C.error = async function(t3, e = {}) {
-  return C(t3, { ...e, type: "error" });
+D.error = async function(e2, t = {}) {
+  return D(e2, { ...t, type: "error" });
 };
-C.warning = async function(t3, e = {}) {
-  return C(t3, { ...e, type: "warning" });
+D.warning = async function(e2, t = {}) {
+  return D(e2, { ...t, type: "warning" });
 };
-C.info = async function(t3, e = {}) {
-  return C(t3, { ...e, type: "information" });
+D.info = async function(e2, t = {}) {
+  return D(e2, { ...t, type: "information" });
 };
-var Ut = [{ selector: ".accordion" }, { selector: "nav[data-dropdown]" }, { selector: "label[data-toggle]" }, { selector: 'input[type="range"]' }, { selector: "form[data-required]" }, { selector: "fieldset[role=group][data-open]" }, { selector: "button, a[class*='btn-']" }];
-function Tt(t3) {
-  t3.dataset.enhancedAccordion || (t3.dataset.enhancedAccordion = "true", t3.addEventListener("toggle", (e) => {
-    e.target.open && e.target.parentElement === t3 && t3.querySelectorAll(":scope > details[open]").forEach((s) => {
-      s !== e.target && (s.open = false);
+var Oe = [{ selector: ".accordion" }, { selector: "nav[data-dropdown]" }, { selector: "label[data-toggle]" }, { selector: 'input[type="range"]' }, { selector: "form[data-required]" }, { selector: "fieldset[role=group][data-open]" }, { selector: "[data-clip]" }, { selector: "button, a[class*='btn-']" }];
+function Ne(e2) {
+  e2.dataset.enhancedAccordion || (e2.dataset.enhancedAccordion = "true", e2.addEventListener("toggle", (t) => {
+    t.target.open && t.target.parentElement === e2 && e2.querySelectorAll(":scope > details[open]").forEach((n) => {
+      n !== t.target && (n.open = false);
     });
   }, true));
 }
-function Ot(t3) {
-  if (t3.dataset.enhancedDropdown)
+function je(e2) {
+  if (e2.dataset.enhancedDropdown)
     return;
-  t3.dataset.enhancedDropdown = "true";
-  let e = t3.querySelector("menu");
-  if (!e)
+  e2.dataset.enhancedDropdown = "true";
+  let t = e2.lastElementChild;
+  if (!t)
     return;
-  let s = t3.querySelector("[data-dropdown-toggle]") || t3.querySelector("button");
-  s && !s.hasAttribute("type") && s.setAttribute("type", "button"), e.id || (e.id = `dropdown-${Math.random().toString(36).slice(2, 9)}`), e.setAttribute("role", e.getAttribute("role") || "menu"), e.hasAttribute("aria-hidden") || e.setAttribute("aria-hidden", "true"), s && (s.setAttribute("aria-haspopup", "true"), s.setAttribute("aria-controls", e.id), s.setAttribute("aria-expanded", "false"));
-  let n = () => {
-    let a = (t3.getAttribute("data-mode") || "auto").toLowerCase();
-    if (a === "up" || a === "down")
-      return a;
-    let c = t3.getBoundingClientRect(), d = Math.max(0, window.innerHeight - c.bottom);
-    return Math.max(0, c.top) > d ? "up" : "down";
-  }, r = () => {
-    t3.dataset.dropdownDirection = n(), e.setAttribute("aria-hidden", "false"), s?.setAttribute("aria-expanded", "true");
-  }, o = () => {
-    e.setAttribute("aria-hidden", "true"), s?.setAttribute("aria-expanded", "false");
+  let n = e2.querySelector("[data-dropdown-toggle]") || e2.querySelector("button");
+  n && !n.hasAttribute("type") && n.setAttribute("type", "button"), t.id || (t.id = `dropdown-${Math.random().toString(36).slice(2, 9)}`), t.tagName?.toLowerCase() === "menu" && !t.hasAttribute("role") && t.setAttribute("role", "menu"), t.hasAttribute("aria-hidden") || t.setAttribute("aria-hidden", "true"), n && (n.setAttribute("aria-haspopup", "true"), n.setAttribute("aria-controls", t.id), n.setAttribute("aria-expanded", "false"));
+  let o = () => {
+    let c = (e2.getAttribute("data-mode") || "auto").toLowerCase();
+    if (c === "up" || c === "down")
+      return c;
+    let d = e2.getBoundingClientRect(), l = Math.max(0, window.innerHeight - d.bottom);
+    return Math.max(0, d.top) > l ? "up" : "down";
+  }, s = () => {
+    e2.dataset.dropdownDirection = o(), t.setAttribute("aria-hidden", "false"), n?.setAttribute("aria-expanded", "true");
   }, i = () => {
-    e.getAttribute("aria-hidden") === "false" ? o() : r();
+    t.setAttribute("aria-hidden", "true"), n?.setAttribute("aria-expanded", "false");
+  }, u = () => {
+    t.getAttribute("aria-hidden") === "false" ? i() : s();
   };
-  s?.addEventListener("click", (a) => {
-    a.preventDefault(), a.stopPropagation(), i();
-  }), document.addEventListener("click", (a) => {
-    t3.contains(a.target) || o();
-  }), t3.addEventListener("keydown", (a) => {
-    a.key === "Escape" && (o(), s?.focus());
-  }), t3.addEventListener("focusout", (a) => {
-    (!a.relatedTarget || !t3.contains(a.relatedTarget)) && o();
+  n?.addEventListener("click", (c) => {
+    c.preventDefault(), c.stopPropagation(), u();
+  }), document.addEventListener("click", (c) => {
+    e2.contains(c.target) || i();
+  }), e2.addEventListener("keydown", (c) => {
+    c.key === "Escape" && (i(), n?.focus());
+  }), e2.addEventListener("focusout", (c) => {
+    (!c.relatedTarget || !e2.contains(c.relatedTarget)) && i();
   });
 }
-function Nt(t3) {
-  if (t3.dataset.enhancedToggle)
+function He(e2) {
+  if (e2.dataset.enhancedToggle)
     return;
-  t3.dataset.enhancedToggle = "true";
-  let e = t3.querySelector('input[type="checkbox"]');
-  if (!e)
+  e2.dataset.enhancedToggle = "true";
+  let t = e2.querySelector('input[type="checkbox"]');
+  if (!t)
     return;
-  t3.hasAttribute("tabindex") || t3.setAttribute("tabindex", "0"), t3.setAttribute("role", "switch"), t3.setAttribute("aria-checked", e.checked ? "true" : "false");
-  let s = document.createElement("span");
-  s.className = "toggle-switch", s.setAttribute("role", "presentation"), s.setAttribute("aria-hidden", "true");
+  e2.hasAttribute("tabindex") || e2.setAttribute("tabindex", "0"), e2.setAttribute("role", "switch"), e2.setAttribute("aria-checked", t.checked ? "true" : "false");
   let n = document.createElement("span");
-  n.className = "toggle-knob", s.appendChild(n), t3.insertBefore(s, e.nextSibling);
-  let r = () => {
-    t3.setAttribute("aria-checked", e.checked ? "true" : "false");
-  }, o = () => {
-    e.disabled || (e.checked = !e.checked, r(), e.dispatchEvent(new Event("change", { bubbles: true })));
+  n.className = "toggle-switch", n.setAttribute("role", "presentation"), n.setAttribute("aria-hidden", "true");
+  let r = document.createElement("span");
+  r.className = "toggle-knob", n.appendChild(r), e2.insertBefore(n, t.nextSibling);
+  let o = () => {
+    e2.setAttribute("aria-checked", t.checked ? "true" : "false");
+  }, s = () => {
+    t.disabled || (t.checked = !t.checked, o(), t.dispatchEvent(new Event("change", { bubbles: true })));
   };
-  t3.addEventListener("click", (i) => {
-    i.preventDefault(), o();
-  }), t3.addEventListener("keydown", (i) => {
-    (i.key === " " || i.key === "Enter") && (i.preventDefault(), o());
-  }), e.addEventListener("change", r);
+  e2.addEventListener("click", (i) => {
+    i.preventDefault(), s();
+  }), e2.addEventListener("keydown", (i) => {
+    (i.key === " " || i.key === "Enter") && (i.preventDefault(), s());
+  }), t.addEventListener("change", o);
 }
-function jt(t3) {
-  if (t3.dataset.enhancedRange)
+function Fe(e2) {
+  if (e2.dataset.enhancedRange)
     return;
-  let e = t3.closest("label"), s = e?.classList.contains("range-output"), n = t3.id || `range-${Math.random().toString(36).substring(2, 11)}`, r = `${n}-output`;
-  if (t3.id = n, s) {
-    let o = e.querySelector("span");
-    if (o && !o.classList.contains("range-output-wrapper")) {
+  let t = e2.closest("label"), n = t?.classList.contains("range-output"), r = e2.id || `range-${Math.random().toString(36).substring(2, 11)}`, o = `${r}-output`;
+  if (e2.id = r, n) {
+    let s = t.querySelector("span");
+    if (s && !s.classList.contains("range-output-wrapper")) {
       let i = document.createElement("span");
       i.className = "range-output-wrapper", i.style.display = "flex", i.style.justifyContent = "space-between", i.style.alignItems = "center";
-      let a = document.createElement("span");
-      a.textContent = o.textContent, i.appendChild(a);
+      let u = document.createElement("span");
+      u.textContent = s.textContent, i.appendChild(u);
       let c = document.createElement("output");
-      c.id = r, c.setAttribute("for", n), c.style.color = "var(--surface-text-secondary, var(--color-text-secondary))", c.style.fontSize = "0.875rem", c.textContent = t3.value, i.appendChild(c), o.textContent = "", o.appendChild(i);
+      c.id = o, c.setAttribute("for", r), c.style.color = "var(--surface-text-secondary, var(--color-text-secondary))", c.style.fontSize = "0.875rem", c.textContent = e2.value, i.appendChild(c), s.textContent = "", s.appendChild(i);
       let d = () => {
-        c.textContent = t3.value;
+        c.textContent = e2.value;
       };
-      t3.addEventListener("input", d);
+      e2.addEventListener("input", d);
     }
   } else {
-    let o = t3.closest(".range-container");
-    o || (o = document.createElement("div"), o.className = "range-container", t3.parentNode?.insertBefore(o, t3), o.appendChild(t3)), o.style.position = "relative";
+    let s = e2.closest(".range-container");
+    s || (s = document.createElement("div"), s.className = "range-container", e2.parentNode?.insertBefore(s, e2), s.appendChild(e2)), s.style.position = "relative";
     let i = document.createElement("output");
-    i.id = r, i.setAttribute("for", n), i.className = "range-bubble", i.setAttribute("aria-live", "polite"), o.appendChild(i);
-    let a = () => {
-      let l = parseFloat(t3.min) || 0, u = parseFloat(t3.max) || 100, f = parseFloat(t3.value), m = (f - l) / (u - l);
-      i.style.left = `calc(${m * 100}% )`, i.textContent = String(f);
+    i.id = o, i.setAttribute("for", r), i.className = "range-bubble", i.setAttribute("aria-live", "polite"), s.appendChild(i);
+    let u = () => {
+      let l = parseFloat(e2.min) || 0, a = parseFloat(e2.max) || 100, m = parseFloat(e2.value), h = (m - l) / (a - l);
+      i.style.left = `calc(${h * 100}% )`, i.textContent = String(m);
     }, c = () => i.classList.add("visible"), d = () => i.classList.remove("visible");
-    t3.addEventListener("input", a), t3.addEventListener("pointerdown", c), t3.addEventListener("pointerup", d), t3.addEventListener("pointerleave", d), t3.addEventListener("focus", c), t3.addEventListener("blur", d), a();
+    e2.addEventListener("input", u), e2.addEventListener("pointerdown", c), e2.addEventListener("pointerup", d), e2.addEventListener("pointerleave", d), e2.addEventListener("focus", c), e2.addEventListener("blur", d), u();
   }
-  t3.dataset.enhancedRange = "1";
+  e2.dataset.enhancedRange = "1";
 }
-function qt(t3) {
-  if (t3.dataset.enhancedRequired)
+function We(e2) {
+  if (e2.dataset.enhancedRequired)
     return;
-  t3.dataset.enhancedRequired = "true";
-  let e = (s) => {
-    let n = s.closest("label");
-    if (!n || n.querySelector(".required-asterisk"))
+  e2.dataset.enhancedRequired = "true";
+  let t = (n) => {
+    let r = n.closest("label");
+    if (!r || r.querySelector(".required-asterisk"))
       return;
-    let r = document.createElement("span");
-    r.classList.add("required-asterisk"), r.textContent = "*", r.style.marginLeft = "4px", n.querySelector("span").appendChild(r);
-    let o = s.closest("form");
-    if (o && !o.querySelector(".required-legend")) {
+    let o = document.createElement("span");
+    o.classList.add("required-asterisk"), o.textContent = "*", o.style.marginLeft = "4px", r.querySelector("span").appendChild(o);
+    let s = n.closest("form");
+    if (s && !s.querySelector(".required-legend")) {
       let i = document.createElement("small");
-      i.classList.add("required-legend"), i.textContent = "* Required fields", o.insertBefore(i, o.querySelector(".form-actions") || o.lastElementChild);
+      i.classList.add("required-legend"), i.textContent = "* Required fields", s.insertBefore(i, s.querySelector(".form-actions") || s.lastElementChild);
     }
   };
-  t3.querySelectorAll("[required]").forEach((s) => {
-    e(s);
+  e2.querySelectorAll("[required]").forEach((n) => {
+    t(n);
   });
 }
-function Ht(t3) {
-  if (t3.dataset.enhancedOpenGroup)
+function ze(e2) {
+  if (e2.dataset.enhancedOpenGroup)
     return;
-  t3.dataset.enhancedOpenGroup = "true", t3.classList.add("flex", "flex-wrap", "buttons");
-  let e = document.createElement("input");
-  e.type = "text", e.placeholder = "Add item...", e.classList.add("input-text", "input-sm"), e.style.width = "auto";
-  let s = t3.querySelector('input[type="radio"], input[type="checkbox"]');
-  t3.appendChild(e), e.addEventListener("keydown", (n) => {
-    if (n.key === "Enter" || n.key === "Tab") {
-      let r = e.value.trim();
-      if (r) {
-        n.preventDefault();
-        let o = s.type === "radio" ? "radio" : "checkbox", i = `open-group-${Math.random().toString(36).substring(2, 11)}`, a = document.createElement("label"), c = document.createElement("span");
-        c.setAttribute("data-label", ""), c.textContent = r;
+  e2.dataset.enhancedOpenGroup = "true", e2.classList.add("flex", "flex-wrap", "buttons");
+  let t = document.createElement("input");
+  t.type = "text", t.placeholder = "Add item...", t.classList.add("input-text", "input-sm"), t.style.width = "auto";
+  let n = e2.querySelector('input[type="radio"], input[type="checkbox"]');
+  e2.appendChild(t), t.addEventListener("keydown", (r) => {
+    if (r.key === "Enter" || r.key === "Tab") {
+      let o = t.value.trim();
+      if (o) {
+        r.preventDefault();
+        let s = n.type === "radio" ? "radio" : "checkbox", i = `open-group-${Math.random().toString(36).substring(2, 11)}`, u = document.createElement("label"), c = document.createElement("span");
+        c.setAttribute("data-label", ""), c.textContent = o;
         let d = document.createElement("input");
-        d.type = o, d.name = s.name || t3.getAttribute("data-name") || "open-group", d.value = r, d.id = i, a.appendChild(c), a.appendChild(d), t3.insertBefore(a, e), e.value = "";
+        d.type = s, d.name = n.name || e2.getAttribute("data-name") || "open-group", d.value = o, d.id = i, u.appendChild(c), u.appendChild(d), e2.insertBefore(u, t), t.value = "";
       }
-    } else if (n.key === "Backspace" && e.value === "") {
-      n.preventDefault();
-      let r = t3.querySelectorAll("label");
-      r.length > 0 && r[r.length - 1].remove();
+    } else if (r.key === "Backspace" && t.value === "") {
+      r.preventDefault();
+      let o = e2.querySelectorAll("label");
+      o.length > 0 && o[o.length - 1].remove();
     }
   });
 }
-function It(t3) {
-  if (t3.dataset.enhancedBtnWorking)
+function Be(e2) {
+  if (e2.dataset.enhancedClip)
     return;
-  t3.dataset.enhancedBtnWorking = "true";
-  let e = null, s = false;
-  new MutationObserver((r) => {
-    r.forEach((o) => {
-      if (o.attributeName === "class") {
-        let i = t3.classList.contains("btn-working"), a = t3.querySelector("pds-icon");
+  e2.dataset.enhancedClip = "true", e2.hasAttribute("tabindex") || e2.setAttribute("tabindex", "0"), e2.hasAttribute("role") || e2.setAttribute("role", "button");
+  let t = () => {
+    let r = e2.getAttribute("data-clip-open") === "true";
+    e2.setAttribute("aria-expanded", r ? "true" : "false");
+  }, n = () => {
+    let r = e2.getAttribute("data-clip-open") === "true";
+    e2.setAttribute("data-clip-open", r ? "false" : "true"), t();
+  };
+  e2.addEventListener("click", (r) => {
+    r.defaultPrevented || n();
+  }), e2.addEventListener("keydown", (r) => {
+    (r.key === " " || r.key === "Enter") && (r.preventDefault(), n());
+  }), t();
+}
+function Ve(e2) {
+  if (e2.dataset.enhancedBtnWorking)
+    return;
+  e2.dataset.enhancedBtnWorking = "true";
+  let t = null, n = false;
+  new MutationObserver((o) => {
+    o.forEach((s) => {
+      if (s.attributeName === "class") {
+        let i = e2.classList.contains("btn-working"), u = e2.querySelector("pds-icon");
         if (i)
-          if (a)
-            e || (e = a.getAttribute("icon")), a.setAttribute("icon", "circle-notch");
+          if (u)
+            t || (t = u.getAttribute("icon")), u.setAttribute("icon", "circle-notch");
           else {
             let c = document.createElement("pds-icon");
-            c.setAttribute("icon", "circle-notch"), c.setAttribute("size", "sm"), t3.insertBefore(c, t3.firstChild), s = true;
+            c.setAttribute("icon", "circle-notch"), c.setAttribute("size", "sm"), e2.insertBefore(c, e2.firstChild), n = true;
           }
         else
-          o.oldValue?.includes("btn-working") && a && (s ? (a.remove(), s = false) : e && (a.setAttribute("icon", e), e = null));
+          s.oldValue?.includes("btn-working") && u && (n ? (u.remove(), n = false) : t && (u.setAttribute("icon", t), t = null));
       }
     });
-  }).observe(t3, { attributes: true, attributeFilter: ["class"], attributeOldValue: true });
+  }).observe(e2, { attributes: true, attributeFilter: ["class"], attributeOldValue: true });
 }
-var zt = /* @__PURE__ */ new Map([[".accordion", Tt], ["nav[data-dropdown]", Ot], ["label[data-toggle]", Nt], ['input[type="range"]', jt], ["form[data-required]", qt], ["fieldset[role=group][data-open]", Ht], ["button, a[class*='btn-']", It]]);
-var xe = Ut.map((t3) => ({ ...t3, run: zt.get(t3.selector) || (() => {
+var Ge = /* @__PURE__ */ new Map([[".accordion", Ne], ["nav[data-dropdown]", je], ["label[data-toggle]", He], ['input[type="range"]', Fe], ["form[data-required]", We], ["fieldset[role=group][data-open]", ze], ["[data-clip]", Be], ["button, a[class*='btn-']", Ve]]);
+var ne = Oe.map((e2) => ({ ...e2, run: Ge.get(e2.selector) || (() => {
 }) }));
-var ot = "pds";
-var Bt = /^([a-z][a-z0-9+\-.]*:)?\/\//i;
-var rt = /^[a-z]:/i;
-function se(t3 = "") {
-  return t3.endsWith("/") ? t3 : `${t3}/`;
+var Le = "pds";
+var Ke = /^([a-z][a-z0-9+\-.]*:)?\/\//i;
+var Ee = /^[a-z]:/i;
+function N(e2 = "") {
+  return e2.endsWith("/") ? e2 : `${e2}/`;
 }
-function Ft(t3 = "", e = ot) {
-  let s = t3.replace(/\/+$/, "");
-  return new RegExp(`(?:^|/)${e}$`, "i").test(s) ? s : `${s}/${e}`;
+function Qe(e2 = "", t = Le) {
+  let n = e2.replace(/\/+$/, "");
+  return new RegExp(`(?:^|/)${t}$`, "i").test(n) ? n : `${n}/${t}`;
 }
-function Wt(t3) {
-  return t3.replace(/^\.\/+/, "");
+function Ze(e2) {
+  return e2.replace(/^\.\/+/, "");
 }
-function Vt(t3) {
-  return rt.test(t3) ? t3.replace(rt, "").replace(/^\/+/, "") : t3;
+function Je(e2) {
+  return Ee.test(e2) ? e2.replace(Ee, "").replace(/^\/+/, "") : e2;
 }
-function Kt(t3) {
-  return t3.startsWith("public/") ? t3.substring(7) : t3;
+function Xe(e2) {
+  return e2.startsWith("public/") ? e2.substring(7) : e2;
 }
-function Re(t3, e = {}) {
-  let s = e.segment || ot, n = e.defaultRoot || `/assets/${s}/`, r = t3?.public && t3.public?.root || t3?.static && t3.static?.root || null;
-  if (!r || typeof r != "string")
-    return se(n);
-  let o = r.trim();
-  return o ? (o = o.replace(/\\/g, "/"), o = Ft(o, s), o = se(o), Bt.test(o) ? o : (o = Wt(o), o = Vt(o), o.startsWith("/") || (o = Kt(o), o.startsWith("/") || (o = `/${o}`), o = o.replace(/\/+/g, (i, a) => a === 0 ? i : "/")), se(o))) : se(n);
+function re(e2, t = {}) {
+  let n = t.segment || Le, r = t.defaultRoot || `/assets/${n}/`, o = e2?.public && e2.public?.root || e2?.static && e2.static?.root || null;
+  if (!o || typeof o != "string")
+    return N(r);
+  let s = o.trim();
+  return s ? (s = s.replace(/\\/g, "/"), s = Qe(s, n), s = N(s), Ke.test(s) ? s : (s = Ze(s), s = Je(s), s.startsWith("/") || (s = Xe(s), s.startsWith("/") || (s = `/${s}`), s = s.replace(/\/+/g, (i, u) => u === 0 ? i : "/")), N(s))) : N(r);
 }
-var Zt = /^[a-z][a-z0-9+\-.]*:\/\//i;
-var ne = (() => {
+var et = /^[a-z][a-z0-9+\-.]*:\/\//i;
+var j = (() => {
   try {
     return import.meta.url;
   } catch {
     return;
   }
 })();
-var ue = (t3) => typeof t3 == "string" && t3.length && !t3.endsWith("/") ? `${t3}/` : t3;
-function pe(t3, e = {}) {
-  if (!t3 || Zt.test(t3))
-    return t3;
-  let { preferModule: s = true } = e, n = () => {
-    if (!ne)
+var V = (e2) => typeof e2 == "string" && e2.length && !e2.endsWith("/") ? `${e2}/` : e2;
+function G(e2, t = {}) {
+  if (!e2 || et.test(e2))
+    return e2;
+  let { preferModule: n = true } = t, r = () => {
+    if (!j)
       return null;
     try {
-      return new URL(t3, ne).href;
+      return new URL(e2, j).href;
     } catch {
       return null;
     }
-  }, r = () => {
+  }, o = () => {
     if (typeof window > "u" || !window.location?.origin)
       return null;
     try {
-      return new URL(t3, window.location.origin).href;
+      return new URL(e2, window.location.origin).href;
     } catch {
       return null;
     }
   };
-  return (s ? n() || r() : r() || n()) || t3;
+  return (n ? r() || o() : o() || r()) || e2;
 }
-var ct = (() => {
-  if (ne)
+var De = (() => {
+  if (j)
     try {
-      let t3 = new URL(ne);
-      if (/\/public\/assets\/js\//.test(t3.pathname))
-        return new URL("../pds/", ne).href;
+      let e2 = new URL(j);
+      if (/\/public\/assets\/js\//.test(e2.pathname))
+        return new URL("../pds/", j).href;
     } catch {
       return;
     }
 })();
-var lt = false;
-function dt(t3) {
-  lt || typeof document > "u" || (lt = true, t3.addEventListener("pds:ready", (e) => {
-    let s = e.detail?.mode;
-    s && document.documentElement.classList.add(`pds-${s}`, "pds-ready");
+var ke = false;
+function Re(e2) {
+  ke || typeof document > "u" || (ke = true, e2.addEventListener("pds:ready", (t) => {
+    let n = t.detail?.mode;
+    n && document.documentElement.classList.add(`pds-${n}`, "pds-ready");
   }));
 }
-function ut(t3 = {}, e = {}) {
-  if (!e || typeof e != "object")
-    return t3;
-  let s = Array.isArray(t3) ? [...t3] : { ...t3 };
-  for (let [n, r] of Object.entries(e))
-    r && typeof r == "object" && !Array.isArray(r) ? s[n] = ut(s[n] && typeof s[n] == "object" ? s[n] : {}, r) : s[n] = r;
-  return s;
+function ie(e2 = {}, t = {}) {
+  if (!t || typeof t != "object")
+    return e2;
+  let n = Array.isArray(e2) ? [...e2] : { ...e2 };
+  for (let [r, o] of Object.entries(t))
+    o && typeof o == "object" && !Array.isArray(o) ? n[r] = ie(n[r] && typeof n[r] == "object" ? n[r] : {}, o) : n[r] = o;
+  return n;
 }
-function ke(t3 = "") {
-  return String(t3).toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+function oe(e2 = "") {
+  return String(e2).toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
-function G(t3) {
-  if (t3 == null)
-    return t3;
-  if (typeof t3 == "function")
+function $(e2) {
+  if (e2 == null)
+    return e2;
+  if (typeof e2 == "function")
     return;
-  if (typeof t3 != "object")
-    return t3;
-  if (Array.isArray(t3))
-    return t3.map((s) => G(s)).filter((s) => s !== void 0);
-  let e = {};
-  for (let s in t3)
-    if (t3.hasOwnProperty(s)) {
-      let n = t3[s];
-      if (typeof n != "function") {
-        let r = G(n);
-        r !== void 0 && (e[s] = r);
+  if (typeof e2 != "object")
+    return e2;
+  if (Array.isArray(e2))
+    return e2.map((n) => $(n)).filter((n) => n !== void 0);
+  let t = {};
+  for (let n in e2)
+    if (e2.hasOwnProperty(n)) {
+      let r = e2[n];
+      if (typeof r != "function") {
+        let o = $(r);
+        o !== void 0 && (t[n] = o);
       }
     }
-  return e;
+  return t;
 }
-function pt(t3 = {}, e = {}, { presets: s, defaultLog: n }) {
-  let r = typeof t3 == "object" && ("colors" in t3 || "typography" in t3 || "spatialRhythm" in t3 || "shape" in t3 || "behavior" in t3 || "layout" in t3 || "advanced" in t3 || "a11y" in t3 || "components" in t3 || "icons" in t3), o = t3 && t3.enhancers;
-  o && !Array.isArray(o) && (o = Object.values(o));
-  let i = o ?? e.enhancers ?? [], a = t3 && t3.preset, c = t3 && t3.design, d = "preset" in (t3 || {}) || "design" in (t3 || {}) || "enhancers" in (t3 || {}), l, u = null;
-  if (d) {
-    let f = String(a || "default").toLowerCase(), m = s?.[f] || Object.values(s || {}).find((R) => ke(R.name) === f || String(R.name || "").toLowerCase() === f);
-    if (!m)
-      throw new Error(`PDS preset not found: "${a || "default"}"`);
-    u = { id: m.id || ke(m.name), name: m.name || m.id || String(f) };
-    let $ = structuredClone(m);
-    if (c && typeof c == "object") {
-      let R = G(c);
-      $ = ut($, structuredClone(R));
+function $e(e2 = {}, t = {}, { presets: n, defaultLog: r }) {
+  let o = typeof e2 == "object" && ("colors" in e2 || "typography" in e2 || "spatialRhythm" in e2 || "shape" in e2 || "behavior" in e2 || "layout" in e2 || "advanced" in e2 || "a11y" in e2 || "components" in e2 || "icons" in e2), s = e2 && e2.enhancers;
+  s && !Array.isArray(s) && (s = Object.values(s));
+  let i = s ?? t.enhancers ?? [], u = e2 && e2.preset, c = e2 && e2.design, d = e2 && e2.icons && typeof e2.icons == "object" ? e2.icons : null, l = "preset" in (e2 || {}) || "design" in (e2 || {}) || "enhancers" in (e2 || {}), a, m = null;
+  if (l) {
+    let h = String(u || "default").toLowerCase(), w = n?.[h] || Object.values(n || {}).find((p) => oe(p.name) === h || String(p.name || "").toLowerCase() === h);
+    if (!w)
+      throw new Error(`PDS preset not found: "${u || "default"}"`);
+    m = { id: w.id || oe(w.name), name: w.name || w.id || String(h) };
+    let v = structuredClone(w);
+    if (c && typeof c == "object" || d) {
+      let p = c ? $(c) : {}, y = d ? $(d) : null, f = y ? ie(p, { icons: y }) : p;
+      v = ie(v, structuredClone(f));
     }
-    let { mode: x, autoDefine: g, applyGlobalStyles: _, manageTheme: H, themeStorageKey: A, preloadStyles: D, criticalLayers: L, managerURL: Z, manager: I, preset: oe, design: E, enhancers: M, log: z, ...S } = t3;
-    l = { ...S, design: $, preset: u.name, log: z || n };
-  } else if (r) {
-    let { log: f, ...m } = t3;
-    l = { design: structuredClone(m), log: f || n };
+    let { mode: g, autoDefine: x, applyGlobalStyles: M, manageTheme: E, themeStorageKey: k, preloadStyles: C, criticalLayers: q, managerURL: I, manager: F, preset: L, design: R, enhancers: O, log: S, ...P } = e2;
+    a = { ...P, design: v, preset: m.name, log: S || r };
+  } else if (o) {
+    let { log: h, ...w } = e2;
+    a = { design: structuredClone(w), log: h || r };
   } else {
-    let f = s?.default || Object.values(s || {}).find((m) => ke(m.name) === "default");
-    if (!f)
+    let h = n?.default || Object.values(n || {}).find((w) => oe(w.name) === "default");
+    if (!h)
       throw new Error("PDS default preset not available");
-    u = { id: f.id || "default", name: f.name || "Default" }, l = { design: structuredClone(f), preset: u.name, log: n };
+    m = { id: h.id || "default", name: h.name || "Default" }, a = { design: structuredClone(h), preset: m.name, log: r };
   }
-  return { generatorConfig: l, enhancers: i, presetInfo: u };
+  return { generatorConfig: a, enhancers: i, presetInfo: m };
 }
-function ht({ manageTheme: t3, themeStorageKey: e, applyResolvedTheme: s, setupSystemListenerIfNeeded: n }) {
-  let r = "light", o = null;
-  if (t3 && typeof window < "u") {
+function Te({ manageTheme: e2, themeStorageKey: t, applyResolvedTheme: n, setupSystemListenerIfNeeded: r }) {
+  let o = "light", s = null;
+  if (e2 && typeof window < "u") {
     try {
-      o = localStorage.getItem(e) || null;
+      s = localStorage.getItem(t) || null;
     } catch {
-      o = null;
+      s = null;
     }
     try {
-      s?.(o), n?.(o);
+      n?.(s), r?.(s);
     } catch {
     }
-    o ? o === "system" ? r = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : r = o : r = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    s ? s === "system" ? o = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : o = s : o = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
-  return { resolvedTheme: r, storedTheme: o };
+  return { resolvedTheme: o, storedTheme: s };
 }
-function De(t3, { resolvePublicAssetURL: e }) {
-  let s = !!(t3?.public?.root || t3?.static?.root), n = e(t3);
-  return !s && ct && (n = ct), ue(pe(n));
+function ae(e2, { resolvePublicAssetURL: t }) {
+  let n = !!(e2?.public?.root || e2?.static?.root), r = t(e2);
+  return !n && De && (r = De), V(G(r));
 }
-async function ft(t3, { baseEnhancers: e = [] } = {}) {
-  let { autoDefineBaseURL: s = "/auto-define/", autoDefinePreload: n = [], autoDefineMapper: r = null, enhancers: o = [], autoDefineOverrides: i = null, autoDefinePreferModule: a = true } = t3, c = (() => {
+async function Me(e2, { baseEnhancers: t = [] } = {}) {
+  let { autoDefineBaseURL: n = "/auto-define/", autoDefinePreload: r = [], autoDefineMapper: o = null, enhancers: s = [], autoDefineOverrides: i = null, autoDefinePreferModule: u = true } = e2, c = (() => {
     let l = /* @__PURE__ */ new Map();
-    return (e || []).forEach((u) => l.set(u.selector, u)), (o || []).forEach((u) => l.set(u.selector, u)), Array.from(l.values());
+    return (t || []).forEach((a) => l.set(a.selector, a)), (s || []).forEach((a) => l.set(a.selector, a)), Array.from(l.values());
   })(), d = null;
   if (typeof window < "u" && typeof document < "u") {
     let l = null;
     try {
-      let g = await Promise.resolve().then(() => (at(), it));
+      let g = await Promise.resolve().then(() => (Ce(), Ae));
       l = g?.AutoDefiner || g?.default?.AutoDefiner || g?.default || null;
     } catch (g) {
       console.warn("AutoDefiner not available:", g?.message || g);
     }
-    let u = (g) => {
+    let a = (g) => {
       switch (g) {
         case "pds-tabpanel":
           return "pds-tabstrip.js";
         default:
           return `${g}.js`;
       }
-    }, { mapper: f, ...m } = i && typeof i == "object" ? i : {}, x = { baseURL: s && ue(pe(s, { preferModule: a })), predefine: n, scanExisting: true, observeShadows: true, patchAttachShadow: true, debounceMs: 16, enhancers: c, onError: (g, _) => {
+    }, { mapper: m, ...h } = i && typeof i == "object" ? i : {}, v = { baseURL: n && V(G(n, { preferModule: u })), predefine: r, scanExisting: true, observeShadows: true, patchAttachShadow: true, debounceMs: 16, enhancers: c, onError: (g, x) => {
       if (typeof g == "string" && g.startsWith("pds-")) {
-        let A = ["pds-form", "pds-drawer"].includes(g), D = _?.message?.includes("#pds/lit") || _?.message?.includes("Failed to resolve module specifier");
-        A && D ? console.error(`\u274C PDS component <${g}> requires Lit but #pds/lit is not in import map.
-Add this to your HTML <head>:
-<script type="importmap">
-  { "imports": { "#pds/lit": "./path/to/lit.js" } }
-<\/script>
-See: https://github.com/pure-ds/core#lit-components`) : console.warn(`\u26A0\uFE0F PDS component <${g}> not found. Assets may not be installed.`);
+        let E = ["pds-form", "pds-drawer"].includes(g), k = x?.message?.includes("#pds/lit") || x?.message?.includes("Failed to resolve module specifier");
+        E && k ? console.error(`\u274C PDS component <${g}> requires Lit but #pds/lit is not in import map.
+              See: https://github.com/Pure-Web-Foundation/pure-ds/blob/main/readme.md#lit-components-not-working`) : console.warn(`\u26A0\uFE0F PDS component <${g}> not found. Assets may not be installed.`);
       } else
-        console.error(`\u274C Auto-define error for <${g}>:`, _);
-    }, ...m, mapper: (g) => {
+        console.error(`\u274C Auto-define error for <${g}>:`, x);
+    }, ...h, mapper: (g) => {
       if (customElements.get(g))
         return null;
-      if (typeof r == "function")
+      if (typeof o == "function")
         try {
-          let _ = r(g);
-          return _ === void 0 ? u(g) : _;
-        } catch (_) {
-          return console.warn("Custom autoDefine.mapper error; falling back to default:", _?.message || _), u(g);
+          let x = o(g);
+          return x === void 0 ? a(g) : x;
+        } catch (x) {
+          return console.warn("Custom autoDefine.mapper error; falling back to default:", x?.message || x), a(g);
         }
-      return u(g);
+      return a(g);
     } };
-    l && (d = new l(x), n.length > 0 && typeof l.define == "function" && await l.define(...n, { baseURL: s, mapper: x.mapper, onError: x.onError }));
+    l && (d = new l(v), r.length > 0 && typeof l.define == "function" && await l.define(...r, { baseURL: n, mapper: v.mapper, onError: v.onError }));
   }
   return { autoDefiner: d, mergedEnhancers: c };
 }
-var Te = class extends EventTarget {
+var de = class extends EventTarget {
 };
-var b = new Te();
+var b = new de();
 b.initializing = false;
 b.currentPreset = null;
 b.debug = false;
-var mt = (t3 = "") => String(t3).toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-var Me = function(t3 = "log", e, ...s) {
-  let n = !!(b.registry && !b.registry.isLive), r = (this?.debug || this?.design?.debug || b.debug || false) === true;
-  if (n) {
+var Ie = (e2 = "") => String(e2).toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+var ce = function(e2 = "log", t, ...n) {
+  let r = !!(b.registry && !b.registry.isLive), o = (this?.debug || this?.design?.debug || b.debug || false) === true;
+  if (r) {
     if (!b.debug)
       return;
-  } else if (!r && t3 !== "error" && t3 !== "warn")
+  } else if (!o && e2 !== "error" && e2 !== "warn")
     return;
-  let o = console[t3] || console.log;
-  s.length > 0 ? o(e, ...s) : o(e);
+  let s = console[e2] || console.log;
+  n.length > 0 ? s(t, ...n) : s(t);
 };
-async function Jt(t3, e = {}) {
-  if (e?.runtimeConfig === false || typeof fetch != "function")
+async function tt(e2, t = {}) {
+  if (t?.runtimeConfig === false || typeof fetch != "function")
     return null;
-  let s = e?.runtimeConfigURL || `${t3}pds-runtime-config.json`;
+  let n = t?.runtimeConfigURL || `${e2}pds-runtime-config.json`;
   try {
-    let n = await fetch(s, { cache: "no-store" });
-    return n.ok ? await n.json() : null;
+    let r = await fetch(n, { cache: "no-store" });
+    return r.ok ? await r.json() : null;
   } catch {
     return null;
   }
 }
-b.registry = F;
-b.adoptLayers = Ne;
-b.adoptPrimitives = Oe;
-b.createStylesheet = je;
-b.isLiveMode = () => F.isLive;
-b.ask = nt;
-b.toast = C;
-function yt(t3) {
-  let e = typeof CustomEvent == "function";
+b.registry = U;
+b.enums = we;
+b.adoptLayers = ge;
+b.adoptPrimitives = ye;
+b.parse = Y;
+b.createStylesheet = be;
+b.isLiveMode = () => U.isLive;
+b.ask = Se;
+b.toast = D;
+b.common = ee;
+b.AutoComplete = z;
+function Pe(e2) {
+  let t = typeof CustomEvent == "function";
   try {
-    let s = e ? new CustomEvent("pds:ready", { detail: t3 }) : new Event("pds:ready");
-    b.dispatchEvent(s);
+    let n = t ? new CustomEvent("pds:ready", { detail: e2 }) : new Event("pds:ready");
+    b.dispatchEvent(n);
   } catch {
   }
   if (typeof document < "u")
-    if (e) {
-      let s = { detail: t3, bubbles: true, composed: true };
+    if (t) {
+      let n = { detail: e2, bubbles: true, composed: true };
       try {
-        document.dispatchEvent(new CustomEvent("pds:ready", s));
+        document.dispatchEvent(new CustomEvent("pds:ready", n));
       } catch {
       }
       try {
-        document.dispatchEvent(new CustomEvent("pds-ready", s));
+        document.dispatchEvent(new CustomEvent("pds-ready", n));
       } catch {
       }
     } else {
@@ -1272,96 +1094,96 @@ function yt(t3) {
     }
 }
 typeof window < "u" && (window.PDS = b);
-var Ue = "pure-ds-theme";
-var q = null;
-var re = null;
-function he(t3) {
+var le = "pure-ds-theme";
+var T = null;
+var H = null;
+function K(e2) {
   try {
     if (typeof document > "u")
       return;
-    let e = "light";
-    t3 ? t3 === "system" ? e = typeof window < "u" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : e = t3 : e = typeof window < "u" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light", document.documentElement.setAttribute("data-theme", e);
+    let t = "light";
+    e2 ? e2 === "system" ? t = typeof window < "u" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : t = e2 : t = typeof window < "u" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light", document.documentElement.setAttribute("data-theme", t);
   } catch {
   }
 }
-function fe(t3) {
+function Q(e2) {
   try {
-    if (q && re) {
+    if (T && H) {
       try {
-        typeof q.removeEventListener == "function" ? q.removeEventListener("change", re) : typeof q.removeListener == "function" && q.removeListener(re);
+        typeof T.removeEventListener == "function" ? T.removeEventListener("change", H) : typeof T.removeListener == "function" && T.removeListener(H);
       } catch {
       }
-      q = null, re = null;
+      T = null, H = null;
     }
-    if (t3 === "system" && typeof window < "u" && window.matchMedia) {
-      let e = window.matchMedia("(prefers-color-scheme: dark)"), s = (n) => {
-        let r = n?.matches === void 0 ? e.matches : n.matches;
+    if (e2 === "system" && typeof window < "u" && window.matchMedia) {
+      let t = window.matchMedia("(prefers-color-scheme: dark)"), n = (r) => {
+        let o = r?.matches === void 0 ? t.matches : r.matches;
         try {
-          let o = r ? "dark" : "light";
-          document.documentElement.setAttribute("data-theme", o), b.dispatchEvent(new CustomEvent("pds:theme:changed", { detail: { theme: o, source: "system" } }));
+          let s = o ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", s), b.dispatchEvent(new CustomEvent("pds:theme:changed", { detail: { theme: s, source: "system" } }));
         } catch {
         }
       };
-      q = e, re = s, typeof e.addEventListener == "function" ? e.addEventListener("change", s) : typeof e.addListener == "function" && e.addListener(s);
+      T = t, H = n, typeof t.addEventListener == "function" ? t.addEventListener("change", n) : typeof t.addListener == "function" && t.addListener(n);
     }
   } catch {
   }
 }
 Object.defineProperty(b, "theme", { get() {
   try {
-    return typeof window > "u" ? null : localStorage.getItem(Ue) || null;
+    return typeof window > "u" ? null : localStorage.getItem(le) || null;
   } catch {
     return null;
   }
-}, set(t3) {
+}, set(e2) {
   try {
     if (typeof window > "u")
       return;
-    t3 == null ? localStorage.removeItem(Ue) : localStorage.setItem(Ue, t3), he(t3), fe(t3), b.dispatchEvent(new CustomEvent("pds:theme:changed", { detail: { theme: t3, source: "api" } }));
+    e2 == null ? localStorage.removeItem(le) : localStorage.setItem(le, e2), K(e2), Q(e2), b.dispatchEvent(new CustomEvent("pds:theme:changed", { detail: { theme: e2, source: "api" } }));
   } catch {
   }
 } });
-b.defaultEnhancers = xe;
-async function Qt(t3) {
-  let e = t3 && t3.mode || "live", { mode: s, ...n } = t3 || {};
-  if (e === "static")
-    return Xt(n);
-  let r = De(n, { resolvePublicAssetURL: Re }), o = n?.managerURL || n?.public?.managerURL || n?.manager?.url || new URL("core/pds-manager.js", r).href || new URL("./pds-manager.js", import.meta.url).href, { startLive: i } = await import(o);
-  return i(b, n, { emitReady: yt, applyResolvedTheme: he, setupSystemListenerIfNeeded: fe });
+b.defaultEnhancers = ne;
+async function nt(e2) {
+  let t = e2 && e2.mode || "live", { mode: n, ...r } = e2 || {};
+  if (t === "static")
+    return rt(r);
+  let o = ae(r, { resolvePublicAssetURL: re }), s = r?.managerURL || r?.public?.managerURL || r?.manager?.url || new URL("core/pds-manager.js", o).href || new URL("./pds-manager.js", import.meta.url).href, { startLive: i } = await import(s);
+  return i(b, r, { emitReady: Pe, applyResolvedTheme: K, setupSystemListenerIfNeeded: Q });
 }
-b.start = Qt;
-async function Xt(t3) {
-  if (!t3 || typeof t3 != "object")
+b.start = nt;
+async function rt(e2) {
+  if (!e2 || typeof e2 != "object")
     throw new Error("PDS.start({ mode: 'static', ... }) requires a valid configuration object");
-  let e = t3.applyGlobalStyles ?? true, s = t3.manageTheme ?? true, n = t3.themeStorageKey ?? "pure-ds-theme", r = t3.staticPaths ?? {}, o = De(t3, { resolvePublicAssetURL: Re }), i = t3 && t3.autoDefine || null, a;
-  i && i.baseURL ? a = ue(pe(i.baseURL, { preferModule: false })) : a = `${o}components/`;
+  let t = e2.applyGlobalStyles ?? true, n = e2.manageTheme ?? true, r = e2.themeStorageKey ?? "pure-ds-theme", o = e2.staticPaths ?? {}, s = ae(e2, { resolvePublicAssetURL: re }), i = e2 && e2.autoDefine || null, u;
+  i && i.baseURL ? u = V(G(i.baseURL, { preferModule: false })) : u = `${s}components/`;
   let c = i && Array.isArray(i.predefine) && i.predefine || [], d = i && typeof i.mapper == "function" && i.mapper || null;
   try {
-    dt(b);
-    let { resolvedTheme: l } = ht({ manageTheme: s, themeStorageKey: n, applyResolvedTheme: he, setupSystemListenerIfNeeded: fe }), u = await Jt(o, t3), f = u?.config?.design || u?.design || null, m = u?.config?.preset || u?.preset || "default", $ = u?.presetId || mt(m) || "default", x = f ? { [String($).toLowerCase()]: f, ...String($).toLowerCase() !== "default" ? { default: f } : {} } : null, g = t3?.design && typeof t3.design == "object" ? G(t3.design) : null, _ = mt(t3?.preset || "default") || "default", H = g ? { [String(_).toLowerCase()]: g, ...String(_).toLowerCase() !== "default" ? { default: g } : {} } : null, A = x || t3?.presets || H || {};
-    if (!Object.keys(A || {}).length)
+    Re(b);
+    let { resolvedTheme: l } = Te({ manageTheme: n, themeStorageKey: r, applyResolvedTheme: K, setupSystemListenerIfNeeded: Q }), a = await tt(s, e2), m = a?.config?.design || a?.design || null, h = a?.config?.preset || a?.preset || "default", w = a?.presetId || Ie(h) || "default", v = m ? { [String(w).toLowerCase()]: m, ...String(w).toLowerCase() !== "default" ? { default: m } : {} } : null, g = e2?.design && typeof e2.design == "object" ? $(e2.design) : null, x = Ie(e2?.preset || "default") || "default", M = g ? { [String(x).toLowerCase()]: g, ...String(x).toLowerCase() !== "default" ? { default: g } : {} } : null, E = v || e2?.presets || M || {};
+    if (!Object.keys(E || {}).length)
       throw new Error("PDS static mode requires preset data. Run pds:build or provide config.presets/config.design.");
-    let D = u?.config ? { ...u.config, ...t3, preset: t3?.preset || $, design: g || f || u?.config?.design } : t3, L = pt(D, {}, { presets: A, defaultLog: Me }), Z = L.enhancers, I = { tokens: `${o}styles/pds-tokens.css.js`, primitives: `${o}styles/pds-primitives.css.js`, components: `${o}styles/pds-components.css.js`, utilities: `${o}styles/pds-utilities.css.js`, styles: `${o}styles/pds-styles.css.js` }, oe = u?.paths || {};
-    if (r = { ...I, ...oe, ...r }, b.registry.setStaticMode(r), e && typeof document < "u")
+    let k = a?.config ? { ...a.config, ...e2, preset: e2?.preset || w, design: g || m || a?.config?.design } : e2, C = $e(k, {}, { presets: E, defaultLog: ce }), q = C.enhancers, I = { tokens: `${s}styles/pds-tokens.css.js`, primitives: `${s}styles/pds-primitives.css.js`, components: `${s}styles/pds-components.css.js`, utilities: `${s}styles/pds-utilities.css.js`, styles: `${s}styles/pds-styles.css.js` }, F = a?.paths || {};
+    if (o = { ...I, ...F, ...o }, b.registry.setStaticMode(o), t && typeof document < "u")
       try {
         let S = await b.registry.getStylesheet("styles");
         if (S) {
           S._pds = true;
-          let R = (document.adoptedStyleSheets || []).filter((p) => p._pds !== true);
-          document.adoptedStyleSheets = [...R, S];
+          let P = (document.adoptedStyleSheets || []).filter((p) => p._pds !== true);
+          document.adoptedStyleSheets = [...P, S];
         }
       } catch (S) {
-        Me.call(b, "warn", "Failed to apply static styles:", S);
+        ce.call(b, "warn", "Failed to apply static styles:", S);
       }
-    let E = null, M = [];
+    let L = null, R = [];
     try {
-      let S = await ft({ autoDefineBaseURL: a, autoDefinePreload: c, autoDefineMapper: d, enhancers: Z, autoDefineOverrides: i || null, autoDefinePreferModule: !(i && i.baseURL) }, { baseEnhancers: xe });
-      E = S.autoDefiner, M = S.mergedEnhancers || [];
+      let S = await Me({ autoDefineBaseURL: u, autoDefinePreload: c, autoDefineMapper: d, enhancers: q, autoDefineOverrides: i || null, autoDefinePreferModule: !(i && i.baseURL) }, { baseEnhancers: ne });
+      L = S.autoDefiner, R = S.mergedEnhancers || [];
     } catch (S) {
-      Me.call(b, "error", "\u274C Failed to initialize AutoDefiner/Enhancers (static):", S);
+      ce.call(b, "error", "\u274C Failed to initialize AutoDefiner/Enhancers (static):", S);
     }
-    let z = G(t3);
-    return b.currentConfig = Object.freeze({ mode: "static", ...structuredClone(z), design: structuredClone(L.generatorConfig.design), preset: L.generatorConfig.preset, theme: l, enhancers: M }), yt({ mode: "static", config: L.generatorConfig, theme: l, autoDefiner: E }), { config: L.generatorConfig, theme: l, autoDefiner: E };
+    let O = $(e2);
+    return b.currentConfig = Object.freeze({ mode: "static", ...structuredClone(O), design: structuredClone(C.generatorConfig.design), preset: C.generatorConfig.preset, theme: l, enhancers: R }), Pe({ mode: "static", config: C.generatorConfig, theme: l, autoDefiner: L }), { config: C.generatorConfig, theme: l, autoDefiner: L };
   } catch (l) {
     throw b.dispatchEvent(new CustomEvent("pds:error", { detail: { error: l } })), l;
   }
@@ -1373,7 +1195,7 @@ var config = {
   mode: "static",
   preset: "social-feed",
   autoDefine: {
-    predefine: ["pds-icon", "pds-drawer", "pds-toaster"],
+    predefine: ["pds-icon", "pds-drawer", "pds-toaster", "pds-tabstrip"],
     // Custom component paths
     mapper: (tag) => {
       if (tag.startsWith("my-"))
@@ -1417,31 +1239,1427 @@ var config = {
   // }
 };
 
-// src/js/app.js
-await b.start(config);
-var main = document.querySelector("main");
-if (main && !main.querySelector("my-home")) {
-  main.innerHTML = "<my-home></my-home>";
+// src/js/router.js
+var HASH_PREFIX = "#/";
+function getPathFromHash() {
+  const hash = location.hash.slice(1) || "/";
+  return hash.startsWith("/") ? hash.slice(1) : hash;
 }
-var parseHTML = (html) => {
-  return new DOMParser().parseFromString(html, "text/html").body.childNodes;
-};
-var settingsBtn = parseHTML(
-  /*html*/
-  `<button id="settings-btn" class="icon-only btn-xs btn-outline" aria-label="Settings">
-    <pds-icon icon="gear"></pds-icon>
-  </button>`
-)[0];
-document.body.appendChild(settingsBtn);
-var drawer = document.createElement("pds-drawer");
-drawer.setAttribute("position", "right");
-drawer.innerHTML = /*html*/
-`<div slot="drawer-header">Settings</div>
-  <div slot="drawer-content"><pds-theme></pds-theme></div>`;
-document.body.appendChild(drawer);
-settingsBtn.addEventListener("click", () => {
-  drawer.open = true;
+function getPathFromUrl(url) {
+  try {
+    const u = typeof url === "string" ? new URL(url, location.origin) : url;
+    const hash = u.hash.slice(1) || "/";
+    return hash.startsWith("/") ? hash.slice(1) : hash;
+  } catch {
+    return getPathFromHash();
+  }
+}
+var routeHandlers = /* @__PURE__ */ new Map();
+var onNavigateCallback = null;
+var lastAppliedPath = null;
+function route(path, handler) {
+  const key = path === "" ? "/" : path.startsWith("/") ? path : `/${path}`;
+  routeHandlers.set(key, handler);
+  const noSlash = path.replace(/^\/+/, "") || "/";
+  if (noSlash !== key)
+    routeHandlers.set(noSlash, handler);
+}
+function navigateTo(path) {
+  const normalized = path ? path.startsWith("/") ? path.slice(1) : path : "";
+  const hash = normalized ? `${HASH_PREFIX}${normalized}` : HASH_PREFIX;
+  if (typeof globalThis.navigation !== "undefined" && globalThis.navigation.navigate) {
+    globalThis.navigation.navigate(location.pathname + location.search + hash, {
+      history: "push"
+    });
+  } else {
+    location.hash = hash;
+  }
+}
+function getCurrentPath() {
+  return getPathFromHash();
+}
+function resolveHandler(path) {
+  const normalized = path ? `/${path}` : "/";
+  if (routeHandlers.has(normalized))
+    return routeHandlers.get(normalized);
+  const parts = path.split("/").filter(Boolean);
+  for (let i = parts.length; i >= 0; i--) {
+    const tryPath = i === 0 ? "/" : `/${parts.slice(0, i).join("/")}`;
+    if (routeHandlers.has(tryPath))
+      return routeHandlers.get(tryPath);
+  }
+  return routeHandlers.get("/") || null;
+}
+function onNavigate(cb) {
+  onNavigateCallback = cb;
+}
+async function handleNavigation(path) {
+  const handler = resolveHandler(path);
+  if (onNavigateCallback)
+    onNavigateCallback(path);
+  if (handler) {
+    const out = handler();
+    return out instanceof Promise ? out : Promise.resolve(out);
+  }
+  return null;
+}
+function initRouter(render) {
+  async function apply(path) {
+    const pathNorm = (path || "").replace(/^\/+/, "").trim();
+    if (lastAppliedPath === pathNorm)
+      return null;
+    lastAppliedPath = pathNorm;
+    const el = await handleNavigation(pathNorm);
+    const root = typeof render === "function" ? await render(pathNorm, el) : null;
+    return root !== void 0 ? root : el;
+  }
+  if (typeof globalThis.navigation !== "undefined" && globalThis.navigation.addEventListener) {
+    globalThis.navigation.addEventListener("navigate", (event) => {
+      if (!event.canIntercept)
+        return;
+      const path = getPathFromUrl(event.destination.url);
+      event.intercept({
+        handler: () => apply(path)
+      });
+    });
+  }
+  window.addEventListener("hashchange", () => {
+    apply(getPathFromHash());
+  });
+  return apply(getPathFromHash());
+}
+
+// src/js/layout.js
+var SETTINGS_EXPANDED_KEY = "dashboard-settings-expanded";
+var NAV_ITEMS = [
+  { path: "", label: "Home", icon: "house" },
+  { path: "inbox", label: "Inbox", icon: "envelope" },
+  { path: "customers", label: "Customers", icon: "users" },
+  { path: "board", label: "Board", icon: "grid-four" },
+  {
+    path: "settings",
+    label: "Settings",
+    icon: "gear",
+    children: [
+      { path: "settings", label: "General" },
+      { path: "settings/members", label: "Members" },
+      { path: "settings/notifications", label: "Notifications" },
+      { path: "settings/security", label: "Security" }
+    ]
+  }
+];
+function navClass(path, current) {
+  const c = (current || "").replace(/\/$/, "");
+  const t = (path || "").replace(/\/$/, "");
+  if (c === t)
+    return "surface-subtle";
+  if (t && !t.includes("/") && (c === t || c.startsWith(t + "/")))
+    return "surface-subtle";
+  return "";
+}
+function getSettingsExpanded(currentPath, toggle) {
+  const key = SETTINGS_EXPANDED_KEY;
+  const defaultExpanded = (currentPath || "").startsWith("settings");
+  if (toggle) {
+    try {
+      const cur = sessionStorage.getItem(key);
+      const next = cur === "0" || cur === "false" ? "1" : "0";
+      sessionStorage.setItem(key, next);
+      return next === "1";
+    } catch {
+      return defaultExpanded;
+    }
+  }
+  try {
+    const stored = sessionStorage.getItem(key);
+    if (stored === null)
+      return defaultExpanded;
+    return stored !== "0" && stored !== "false";
+  } catch {
+    return defaultExpanded;
+  }
+}
+function buildSidebar(currentPath) {
+  const nav = document.createElement("nav");
+  nav.setAttribute("aria-label", "Main");
+  nav.className = "stack-sm flex flex-col gap-sm surface-elevated dashboard-sidebar";
+  const list = document.createElement("ul");
+  list.className = "stack-xs list-unstyled";
+  const settingsExpanded = getSettingsExpanded(currentPath);
+  for (const item of NAV_ITEMS) {
+    const li = document.createElement("li");
+    if (item.children) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "dashboard-nav-parent";
+      const toggleBtn = document.createElement("button");
+      toggleBtn.type = "button";
+      toggleBtn.className = "flex gap-sm items-center p-sm radius-base w-full text-left dashboard-nav-toggle";
+      toggleBtn.setAttribute("aria-expanded", String(settingsExpanded));
+      toggleBtn.setAttribute("aria-controls", "dashboard-settings-sublist");
+      toggleBtn.id = "dashboard-settings-toggle";
+      toggleBtn.innerHTML = `<pds-icon icon="${item.icon}" size="sm"></pds-icon><span>${item.label}</span><pds-icon icon="caret-down" size="sm" class="dashboard-nav-chevron"></pds-icon>`;
+      toggleBtn.addEventListener("click", () => {
+        getSettingsExpanded(currentPath, true);
+        const next = buildSidebar(currentPath);
+        nav.closest("aside")?.replaceChildren(next);
+      });
+      wrapper.appendChild(toggleBtn);
+      const subList = document.createElement("ul");
+      subList.id = "dashboard-settings-sublist";
+      subList.className = "stack-xs list-unstyled dashboard-nav-sublist";
+      subList.setAttribute("data-expanded", settingsExpanded ? "true" : "false");
+      for (const child of item.children) {
+        const subLi = document.createElement("li");
+        const subA = document.createElement("a");
+        subA.href = `#/${child.path}`;
+        subA.className = `flex gap-sm items-center p-xs radius-base text-sm ${navClass(child.path, currentPath)}`;
+        subA.textContent = child.label;
+        subA.addEventListener("click", (e2) => {
+          e2.preventDefault();
+          navigateTo(child.path);
+        });
+        subLi.appendChild(subA);
+        subList.appendChild(subLi);
+      }
+      wrapper.appendChild(subList);
+      li.appendChild(wrapper);
+    } else {
+      const a = document.createElement("a");
+      a.href = `#/${item.path}`;
+      a.className = `dashboard-nav-link flex gap-sm items-center p-sm radius-base ${navClass(item.path, currentPath)}`;
+      a.setAttribute("data-nav", item.path);
+      a.innerHTML = `<pds-icon icon="${item.icon}" size="sm"></pds-icon><span>${item.label}</span>`;
+      a.addEventListener("click", (e2) => {
+        e2.preventDefault();
+        navigateTo(item.path);
+      });
+      li.appendChild(a);
+    }
+    list.appendChild(li);
+  }
+  nav.appendChild(list);
+  return nav;
+}
+function buildToolbar({ title, onSearch, onNotifications, onTheme }) {
+  const header = document.createElement("header");
+  header.className = "flex justify-between items-center gap-md p-md surface-subtle";
+  const h1 = document.createElement("h1");
+  h1.className = "text-lg";
+  h1.textContent = title;
+  header.appendChild(h1);
+  const actions = document.createElement("div");
+  actions.className = "dashboard-toolbar-actions";
+  const searchBtn = document.createElement("button");
+  searchBtn.type = "button";
+  searchBtn.className = "btn-outline icon-only dashboard-toolbar-btn";
+  searchBtn.setAttribute("aria-label", "Search");
+  searchBtn.innerHTML = '<pds-icon icon="magnifying-glass" size="xs"></pds-icon>';
+  searchBtn.addEventListener("click", () => onSearch?.());
+  const notifBtn = document.createElement("button");
+  notifBtn.type = "button";
+  notifBtn.className = "btn-outline icon-only dashboard-toolbar-btn";
+  notifBtn.setAttribute("aria-label", "Notifications");
+  notifBtn.innerHTML = '<pds-icon icon="bell" size="xs"></pds-icon>';
+  notifBtn.addEventListener("click", () => onNotifications?.());
+  const themeBtn = document.createElement("button");
+  themeBtn.type = "button";
+  themeBtn.className = "btn-outline icon-only dashboard-toolbar-btn";
+  themeBtn.setAttribute("aria-label", "Theme");
+  themeBtn.innerHTML = '<pds-icon icon="palette" size="xs"></pds-icon>';
+  themeBtn.addEventListener("click", () => onTheme?.());
+  actions.append(searchBtn, notifBtn, themeBtn);
+  header.appendChild(actions);
+  return header;
+}
+function createLayout() {
+  const layoutRoot2 = document.createElement("div");
+  layoutRoot2.className = "flex gap-0 dashboard-layout";
+  const sidebar = document.createElement("aside");
+  sidebar.className = "surface-elevated";
+  sidebar.setAttribute("aria-label", "Sidebar");
+  const sidebarContent = buildSidebar("");
+  sidebar.appendChild(sidebarContent);
+  const content = document.createElement("div");
+  content.className = "grow flex flex-col dashboard-content";
+  let themeDrawerRef = null;
+  function openTheme() {
+    if (!themeDrawerRef)
+      return;
+    themeDrawerRef.open = true;
+    themeDrawerRef.setAttribute("open", "");
+  }
+  let commandPaletteDrawer = null;
+  let notificationsDrawer = null;
+  function openCommandPalette2() {
+    const drawer = commandPaletteDrawer;
+    if (!drawer)
+      return;
+    if (typeof drawer.openDrawer === "function")
+      drawer.openDrawer();
+    else {
+      drawer.open = true;
+      drawer.setAttribute("open", "");
+    }
+  }
+  function openNotifications2() {
+    const drawer = notificationsDrawer;
+    if (!drawer)
+      return;
+    if (typeof drawer.openDrawer === "function")
+      drawer.openDrawer();
+    else {
+      drawer.open = true;
+      drawer.setAttribute("open", "");
+    }
+  }
+  const toolbar = buildToolbar({
+    title: "Home",
+    onSearch: openCommandPalette2,
+    onNotifications: openNotifications2,
+    onTheme: openTheme
+  });
+  content.appendChild(toolbar);
+  const mainOutlet2 = document.createElement("main");
+  mainOutlet2.className = "grow p-md";
+  mainOutlet2.setAttribute("role", "main");
+  content.appendChild(mainOutlet2);
+  layoutRoot2.appendChild(sidebar);
+  layoutRoot2.appendChild(content);
+  function updateToolbarTitle(title) {
+    const t = layoutRoot2.querySelector("header h1");
+    if (t)
+      t.textContent = title;
+  }
+  function updateSidebar2(path) {
+    const next = buildSidebar(path);
+    sidebar.replaceChildren(next);
+    const labels = { "": "Home", inbox: "Inbox", customers: "Customers", board: "Board", settings: "Settings" };
+    const first = (path || "").split("/")[0];
+    updateToolbarTitle(labels[first] || first || "Home");
+  }
+  return {
+    layoutRoot: layoutRoot2,
+    mainOutlet: mainOutlet2,
+    sidebar,
+    updateSidebar: updateSidebar2,
+    updateToolbarTitle,
+    setCommandPaletteDrawer(drawer) {
+      commandPaletteDrawer = drawer;
+    },
+    setNotificationsDrawer(drawer) {
+      notificationsDrawer = drawer;
+    },
+    setThemeDrawer(drawer) {
+      themeDrawerRef = drawer;
+    },
+    openCommandPalette: openCommandPalette2,
+    openNotifications: openNotifications2
+  };
+}
+
+// src/js/components/command-palette.js
+var COMMANDS = [
+  { path: "", label: "Home", icon: "house" },
+  { path: "inbox", label: "Inbox", icon: "envelope" },
+  { path: "customers", label: "Customers", icon: "users" },
+  { path: "board", label: "Board", icon: "grid-four" },
+  { path: "settings", label: "Settings", icon: "gear" }
+];
+function createCommandPalette() {
+  const drawer = document.createElement("pds-drawer");
+  drawer.setAttribute("position", "right");
+  const header = document.createElement("div");
+  header.setAttribute("slot", "drawer-header");
+  header.className = "flex items-center gap-sm";
+  const input = document.createElement("input");
+  input.type = "search";
+  input.placeholder = "Search or jump to\u2026";
+  input.className = "grow";
+  input.setAttribute("aria-label", "Search");
+  header.appendChild(input);
+  const list = document.createElement("ul");
+  list.className = "stack-xs";
+  list.style.listStyle = "none";
+  list.style.padding = "0";
+  list.style.margin = "0";
+  function renderItems(filter = "") {
+    const q = filter.toLowerCase();
+    const items = q ? COMMANDS.filter((c) => c.label.toLowerCase().includes(q) || c.path.toLowerCase().includes(q)) : COMMANDS;
+    list.innerHTML = "";
+    for (const cmd of items) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `#/${cmd.path}`;
+      a.className = "flex gap-sm items-center p-sm radius-base surface-subtle";
+      a.innerHTML = `<pds-icon icon="${cmd.icon}" size="sm"></pds-icon><span>${cmd.label}</span>`;
+      a.addEventListener("click", (e2) => {
+        e2.preventDefault();
+        navigateTo(cmd.path);
+        drawer.open = false;
+      });
+      li.appendChild(a);
+      list.appendChild(li);
+    }
+  }
+  renderItems();
+  input.addEventListener("input", () => renderItems(input.value));
+  input.addEventListener("keydown", (e2) => {
+    if (e2.key === "Escape")
+      drawer.open = false;
+  });
+  const content = document.createElement("div");
+  content.setAttribute("slot", "drawer-content");
+  content.className = "stack-md";
+  content.appendChild(list);
+  drawer.appendChild(header);
+  drawer.appendChild(content);
+  drawer.addEventListener("pds-drawer:opened", () => {
+    input.value = "";
+    renderItems();
+    setTimeout(() => input.focus(), 100);
+  });
+  return drawer;
+}
+function registerCommandPaletteShortcut(open) {
+  document.addEventListener("keydown", (e2) => {
+    if ((e2.metaKey || e2.ctrlKey) && e2.key === "k") {
+      e2.preventDefault();
+      open();
+    }
+  });
+}
+
+// src/js/lib/fetch-cache.js
+var DEFAULT_TTL_MS = 5 * 60 * 1e3;
+var CACHE_NAME = "pds-dashboard-api-v1";
+var memoryCacheBackend = /* @__PURE__ */ new Map();
+var memoryCacheStats = { hits: 0, misses: 0 };
+var MEMORY_CACHE = new Proxy(memoryCacheBackend, {
+  get(target, prop) {
+    if (prop === "__stats__")
+      return memoryCacheStats;
+    if (prop === "get") {
+      return function(key) {
+        const entry = target.get(key);
+        if (entry && typeof entry === "object" && entry.expires > Date.now())
+          memoryCacheStats.hits++;
+        return entry;
+      };
+    }
+    return Reflect.get(target, prop);
+  }
 });
+async function cachedFetch(url, options = {}, opts = {}) {
+  const method = (options.method || "GET").toUpperCase();
+  const skipCache = opts.cache === false || method !== "GET";
+  const ttl = opts.ttl ?? DEFAULT_TTL_MS;
+  if (skipCache)
+    return fetch(url, options);
+  const cacheKey = url;
+  if (typeof caches !== "undefined") {
+    try {
+      const cache = await caches.open(CACHE_NAME);
+      const cached = await cache.match(url);
+      if (cached) {
+        const date = cached.headers.get("x-cached-at");
+        if (date && ttl > 0 && Date.now() - parseInt(date, 10) < ttl)
+          return cached;
+      }
+      const res = await fetch(url, options);
+      if (res.ok) {
+        const clone = res.clone();
+        const headers = new Headers(clone.headers);
+        headers.set("x-cached-at", String(Date.now()));
+        const body2 = await clone.blob();
+        await cache.put(url, new Response(body2, { status: clone.status, statusText: clone.statusText, headers }));
+      }
+      return res;
+    } catch {
+      return fetch(url, options);
+    }
+  }
+  const entry = MEMORY_CACHE.get(cacheKey);
+  if (entry && entry.expires > Date.now())
+    return entry.response.clone();
+  memoryCacheStats.misses++;
+  const response = await fetch(url, options);
+  if (response.ok) {
+    MEMORY_CACHE.set(cacheKey, {
+      response: response.clone(),
+      expires: Date.now() + ttl
+    });
+  }
+  return response;
+}
+
+// src/js/components/notifications-slideover.js
+function createNotificationsSlideover(onClose) {
+  const drawer = document.createElement("pds-drawer");
+  drawer.setAttribute("position", "right");
+  const header = document.createElement("div");
+  header.setAttribute("slot", "drawer-header");
+  header.className = "flex justify-between items-center";
+  header.innerHTML = '<h2 class="text-base">Notifications</h2>';
+  const list = document.createElement("ul");
+  list.className = "stack-xs list-unstyled";
+  const content = document.createElement("div");
+  content.setAttribute("slot", "drawer-content");
+  content.className = "stack-sm";
+  function renderNotifications(items) {
+    list.innerHTML = "";
+    if (!items || items.length === 0) {
+      const li = document.createElement("li");
+      li.className = "text-muted text-sm p-md";
+      li.textContent = "No notifications";
+      list.appendChild(li);
+      return;
+    }
+    for (const n of items) {
+      const li = document.createElement("li");
+      li.className = "card surface-subtle p-md";
+      const name = n.sender?.name ?? "Someone";
+      const body2 = n.body ?? "";
+      const date = n.date ? new Date(n.date).toLocaleDateString(void 0, { dateStyle: "short" }) : "";
+      li.innerHTML = `
+        <div class="flex justify-between items-start gap-sm">
+          <strong class="text-sm">${escapeHtml(name)}</strong>
+          <span class="text-muted text-xs">${escapeHtml(date)}</span>
+        </div>
+        <p class="text-sm text-muted mt-xs">${escapeHtml(body2)}</p>
+      `;
+      list.appendChild(li);
+    }
+  }
+  content.appendChild(list);
+  drawer.appendChild(header);
+  drawer.appendChild(content);
+  cachedFetch("/api/notifications.json").then((r) => r.ok ? r.json() : []).then(renderNotifications).catch(() => renderNotifications([]));
+  if (typeof onClose === "function") {
+    drawer.addEventListener("pds-drawer:closed", onClose);
+  }
+  return drawer;
+}
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// src/js/lib/chart.js
+var DEFAULT_CHART_WIDTH = 600;
+var DEFAULT_CHART_HEIGHT = 240;
+var PADDING = { top: 16, right: 16, bottom: 24, left: 40 };
+function resolveColor(canvas, token, fallback) {
+  try {
+    const root = canvas.ownerDocument?.documentElement || document.documentElement;
+    const value = getComputedStyle(root).getPropertyValue(token.replace("var(", "").replace(")", "").trim());
+    if (value)
+      return value.trim();
+  } catch {
+  }
+  return fallback;
+}
+function drawLineChart(canvas, options) {
+  const { values = [], labels = [], color, fill = true } = options;
+  if (values.length === 0)
+    return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx)
+    return;
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const width = rect.width > 0 ? rect.width : DEFAULT_CHART_WIDTH;
+  const height = rect.height > 0 ? rect.height : DEFAULT_CHART_HEIGHT;
+  canvas.width = Math.floor(width * dpr);
+  canvas.height = Math.floor(height * dpr);
+  ctx.scale(dpr, dpr);
+  const chartW = width - PADDING.left - PADDING.right;
+  const chartH = height - PADDING.top - PADDING.bottom;
+  if (chartW <= 0 || chartH <= 0)
+    return;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const stepX = chartW / Math.max(values.length - 1, 1);
+  const primary = color || resolveColor(canvas, "--color-primary-500", "#0e7490");
+  const primaryLight = resolveColor(canvas, "--color-primary-200", "#a5f3fc");
+  ctx.save();
+  ctx.translate(PADDING.left, PADDING.top);
+  const points = values.map((v, i) => ({
+    x: i * stepX,
+    y: chartH - (v - min) / range * chartH
+  }));
+  if (fill) {
+    ctx.beginPath();
+    ctx.moveTo(0, chartH);
+    points.forEach((p) => ctx.lineTo(p.x, p.y));
+    ctx.lineTo(chartW, chartH);
+    ctx.closePath();
+    ctx.fillStyle = primaryLight;
+    ctx.globalAlpha = 0.4;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+  points.slice(1).forEach((p) => ctx.lineTo(p.x, p.y));
+  ctx.strokeStyle = primary;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.stroke();
+  ctx.restore();
+}
+function setupLineChartHover(canvas, values, opts = {}) {
+  if (!values.length)
+    return;
+  const formatValue = opts.formatValue ?? ((v) => String(v));
+  const rect = canvas.getBoundingClientRect();
+  const chartW = rect.width - PADDING.left - PADDING.right;
+  const stepX = chartW / Math.max(values.length - 1, 1);
+  let tooltip = canvas.parentElement?.querySelector(".chart-tooltip");
+  if (!tooltip) {
+    tooltip = document.createElement("div");
+    tooltip.className = "chart-tooltip";
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.style.cssText = "position:absolute;pointer-events:none;z-index:2;padding:6px 10px;border-radius:6px;font-size:12px;font-weight:600;white-space:nowrap;opacity:0;transition:opacity 0.15s ease;";
+    canvas.parentElement?.appendChild(tooltip);
+  }
+  const parent = canvas.parentElement;
+  const show = (clientX, clientY, text) => {
+    tooltip.textContent = text;
+    tooltip.style.background = "var(--color-surface-overlay, #1e293b)";
+    tooltip.style.color = "var(--color-text-inverse, #f8fafc)";
+    if (parent) {
+      const pr = parent.getBoundingClientRect();
+      tooltip.style.left = `${clientX - pr.left + 12}px`;
+      tooltip.style.top = `${clientY - pr.top + 10}px`;
+    } else {
+      tooltip.style.left = `${clientX + 12}px`;
+      tooltip.style.top = `${clientY + 10}px`;
+    }
+    tooltip.style.opacity = "1";
+    tooltip.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, fill: "forwards" });
+  };
+  const hide = () => {
+    tooltip.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 100, fill: "forwards" });
+    tooltip.style.opacity = "0";
+  };
+  canvas.addEventListener("mousemove", (e2) => {
+    const r = canvas.getBoundingClientRect();
+    const x = e2.clientX - r.left - PADDING.left;
+    const i = Math.round(x / stepX);
+    const idx = Math.max(0, Math.min(i, values.length - 1));
+    const v = values[idx];
+    show(e2.clientX, e2.clientY, formatValue(v));
+  });
+  canvas.addEventListener("mouseleave", hide);
+}
+
+// src/js/lib/animations.js
+var defaultDuration = 200;
+var defaultEasing = "ease-out";
+function fadeIn(el, options = {}) {
+  return el.animate(
+    [{ opacity: 0 }, { opacity: 1 }],
+    {
+      duration: options.duration ?? defaultDuration,
+      easing: options.easing ?? defaultEasing,
+      fill: "forwards",
+      ...options
+    }
+  );
+}
+
+// src/js/pages/home.js
+function renderHome() {
+  const wrap = document.createElement("div");
+  wrap.className = "stack-lg";
+  const stats = document.createElement("div");
+  stats.className = "grid grid-cols-1 md:grid-cols-3 gap-md";
+  stats.innerHTML = `
+    <article class="card surface-elevated p-md">
+      <p class="text-muted text-sm">Revenue</p>
+      <p class="text-xl" data-stat="revenue">\u2014</p>
+    </article>
+    <article class="card surface-elevated p-md">
+      <p class="text-muted text-sm">Orders</p>
+      <p class="text-xl" data-stat="orders">\u2014</p>
+    </article>
+    <article class="card surface-elevated p-md">
+      <p class="text-muted text-sm">Conversion</p>
+      <p class="text-xl" data-stat="conversion">\u2014</p>
+    </article>
+  `;
+  wrap.appendChild(stats);
+  const chartCard = document.createElement("article");
+  chartCard.className = "card surface-elevated p-md chart-card";
+  const chartTitle = document.createElement("h2");
+  chartTitle.className = "text-base mb-md";
+  chartTitle.textContent = "Sales (last 14 days)";
+  chartCard.appendChild(chartTitle);
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("width", "600");
+  canvas.setAttribute("height", "240");
+  canvas.style.width = "100%";
+  canvas.style.height = "240px";
+  canvas.style.maxWidth = "100%";
+  canvas.style.display = "block";
+  chartCard.appendChild(canvas);
+  wrap.appendChild(chartCard);
+  const root = document.documentElement;
+  const shadowHover = getComputedStyle(root).getPropertyValue("--shadow-md").trim() || "0 4px 6px rgba(0,0,0,0.1)";
+  chartCard.addEventListener("mouseenter", () => {
+    chartCard.animate(
+      [{ boxShadow: "none" }, { boxShadow: shadowHover }],
+      { duration: 200, fill: "forwards" }
+    );
+  });
+  chartCard.addEventListener("mouseleave", () => {
+    chartCard.animate(
+      [{ boxShadow: shadowHover }, { boxShadow: "none" }],
+      { duration: 200, fill: "forwards" }
+    );
+  });
+  function drawChart() {
+    cachedFetch("/api/stats.json").then((r) => r.json()).then((data) => {
+      const tot = data.totals || {};
+      const rev = wrap.querySelector('[data-stat="revenue"]');
+      const ord = wrap.querySelector('[data-stat="orders"]');
+      const conv = wrap.querySelector('[data-stat="conversion"]');
+      if (rev)
+        rev.textContent = tot.revenue != null ? `$${Number(tot.revenue).toLocaleString()}` : "\u2014";
+      if (ord)
+        ord.textContent = tot.orders != null ? String(tot.orders) : "\u2014";
+      if (conv)
+        conv.textContent = tot.conversion != null ? `${tot.conversion}%` : "\u2014";
+      const sales = data.sales || [];
+      const values = sales.map((s) => s.amount ?? 0);
+      if (values.length) {
+        requestAnimationFrame(() => {
+          drawLineChart(canvas, { values, fill: true });
+          setupLineChartHover(canvas, values, {
+            formatValue: (v) => `$${Number(v).toLocaleString()}`
+          });
+        });
+      }
+    }).catch(() => {
+    });
+  }
+  drawChart();
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+
+// src/js/pages/inbox.js
+function renderInbox() {
+  const wrap = document.createElement("div");
+  wrap.className = "stack-md";
+  const list = document.createElement("ul");
+  list.className = "stack-sm";
+  list.style.listStyle = "none";
+  list.style.padding = "0";
+  list.style.margin = "0";
+  const loading = document.createElement("p");
+  loading.className = "text-muted";
+  loading.textContent = "Loading\u2026";
+  wrap.appendChild(loading);
+  wrap.appendChild(list);
+  cachedFetch("/api/mails.json").then((r) => r.json()).then((items) => {
+    loading.remove();
+    for (const m of items) {
+      const li = document.createElement("li");
+      li.className = "card surface-elevated p-md";
+      const from = m.from?.name ?? "Unknown";
+      const subj = m.subject ?? "";
+      const date = m.date ? new Date(m.date).toLocaleDateString(void 0, { dateStyle: "short" }) : "";
+      li.innerHTML = `
+          <div class="flex justify-between items-start gap-sm">
+            <strong class="text-sm">${escapeHtml2(from)}</strong>
+            <span class="text-muted text-xs">${escapeHtml2(date)}</span>
+          </div>
+          <p class="text-sm mt-xs ${m.unread ? "" : "text-muted"}">${escapeHtml2(subj)}</p>
+        `;
+      list.appendChild(li);
+    }
+  }).catch(() => {
+    loading.textContent = "Failed to load mails.";
+  });
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+function escapeHtml2(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// src/js/lib/african-names.js
+var FIRST_NAMES = [
+  "Amadou",
+  "Fatou",
+  "Moussa",
+  "Aminata",
+  "Ibrahima",
+  "Mariama",
+  "Ousmane",
+  "Awa",
+  "Mamadou",
+  "Khadija",
+  "Souleymane",
+  "Ndeye",
+  "Abdoulaye",
+  "A\xEFssatou",
+  "Cheikh",
+  "Adama",
+  "Oumar",
+  "Fatima",
+  "Sidy",
+  "Maimouna",
+  "Thierno",
+  "Sokhna",
+  "Samba",
+  "Kofi",
+  "Abena",
+  "Kwame",
+  "Ama",
+  "Chinedu",
+  "Ngozi",
+  "Adebayo",
+  "Oluwaseun",
+  "Tendai",
+  "Zanele",
+  "Thabo",
+  "Lerato",
+  "Amara",
+  "Yaa"
+];
+var LAST_NAMES = [
+  "Diallo",
+  "Ndiaye",
+  "Sow",
+  "Fall",
+  "Ba",
+  "Kane",
+  "Traor\xE9",
+  "Sarr",
+  "Sene",
+  "Diop",
+  "Mbaye",
+  "Gueye",
+  "Barry",
+  "Okafor",
+  "Nwosu",
+  "Okonkwo",
+  "Mensah",
+  "Asante",
+  "Boateng",
+  "Dlamini",
+  "Mbeki",
+  "Osei",
+  "Kamara",
+  "Toure"
+];
+var CITIES = [
+  "Dakar",
+  "Lagos",
+  "Nairobi",
+  "Johannesburg",
+  "Cairo",
+  "Abidjan",
+  "Accra",
+  "Douala",
+  "Kinshasa",
+  "Addis Ababa",
+  "Dar es Salaam",
+  "Kampala",
+  "Durban",
+  "Cape Town",
+  "Bamako",
+  "Ouagadougou",
+  "Lom\xE9",
+  "Cotonou"
+];
+var EMAIL_DOMAINS = ["mail.sn", "mail.ng", "mail.za", "example.co.ke", "example.eg", "mail.ci"];
+function slug(str) {
+  if (!str || typeof str !== "string")
+    return "";
+  return str.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/g, ".").replace(/[^a-z0-9.-]/g, "");
+}
+function pick(arr, seed) {
+  const i = seed != null ? Math.abs(seed) % arr.length : Math.floor(Math.random() * arr.length);
+  return arr[i];
+}
+function generatePerson(id = 0) {
+  const first = pick(FIRST_NAMES, id);
+  const last = pick(LAST_NAMES, id + 1);
+  const name = `${first} ${last}`;
+  const local = `${slug(first)}.${slug(last)}`;
+  const domain = pick(EMAIL_DOMAINS, id + 2);
+  const email = `${local}@${domain}`;
+  const city = pick(CITIES, id + 3);
+  const location2 = city;
+  return { name, email, location: location2 };
+}
+function generatePeople(count) {
+  const out = [];
+  for (let i = 0; i < count; i++) {
+    const p = generatePerson(i + 1);
+    out.push({ id: i + 1, ...p });
+  }
+  return out;
+}
+
+// src/js/lib/countries-data.js
+var STATUSES = ["subscribed", "subscribed", "subscribed", "unsubscribed", "bounced"];
+var ROLES = ["member", "member", "owner"];
+async function loadPeopleFromCountries(count = 16) {
+  return Promise.resolve(generatePeople(count));
+}
+async function loadCustomersFromCountries(max = 8) {
+  const people = await loadPeopleFromCountries(max);
+  return people.map((p, i) => ({
+    id: p.id,
+    name: p.name,
+    email: p.email,
+    avatar: { src: `https://i.pravatar.cc/128?u=${p.id}` },
+    status: STATUSES[i % STATUSES.length],
+    location: p.location
+  }));
+}
+async function loadMembersFromCountries(max = 12) {
+  const people = await loadPeopleFromCountries(max);
+  return people.slice(0, max).map((p, i) => ({
+    name: p.name,
+    role: ROLES[i % ROLES.length]
+  }));
+}
+
+// src/js/pages/customers.js
+function renderCustomers() {
+  const wrap = document.createElement("div");
+  wrap.className = "stack-md";
+  const loading = document.createElement("p");
+  loading.className = "text-muted";
+  loading.textContent = "Loading\u2026";
+  wrap.appendChild(loading);
+  const tableWrap = document.createElement("div");
+  tableWrap.className = "overflow-auto";
+  const table = document.createElement("table");
+  table.className = "table-responsive";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+  tableWrap.appendChild(table);
+  wrap.appendChild(tableWrap);
+  loadCustomersFromCountries(4).then((items) => {
+    loading.remove();
+    const tbody = table.querySelector("tbody");
+    for (const c of items) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+          <td>${escapeHtml3(c.name ?? "")}</td>
+          <td>${escapeHtml3(c.email ?? "")}</td>
+          <td><span class="badge badge-${statusClass(c.status)}">${escapeHtml3(c.status ?? "")}</span></td>
+          <td>${escapeHtml3(c.location ?? "")}</td>
+        `;
+      tbody.appendChild(tr);
+    }
+  }).catch(() => {
+    loading.textContent = "Failed to load customers.";
+  });
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+function statusClass(s) {
+  if (s === "subscribed")
+    return "success";
+  if (s === "unsubscribed")
+    return "secondary";
+  if (s === "bounced")
+    return "danger";
+  return "secondary";
+}
+function escapeHtml3(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// src/js/pages/settings.js
+var TAB_PANEL_IDS = ["/settings", "/settings/members", "/settings/notifications", "/settings/security"];
+var TAB_PATHS = ["settings", "settings/members", "settings/notifications", "settings/security"];
+function pathToPanelId(path) {
+  const p = (path || "settings").replace(/^\/+/, "");
+  const idx = TAB_PATHS.indexOf(p);
+  return idx >= 0 ? TAB_PANEL_IDS[idx] : TAB_PANEL_IDS[0];
+}
+function renderSettings(currentPath) {
+  const wrap = document.createElement("div");
+  wrap.className = "stack-md";
+  const tabstrip = document.createElement("pds-tabstrip");
+  const general = document.createElement("pds-tabpanel");
+  general.id = "/settings";
+  general.setAttribute("label", "General");
+  general.innerHTML = `
+    <div class="stack-sm p-md">
+      <h3 class="text-base">General settings</h3>
+      <p class="text-muted text-sm">Configure app preferences here.</p>
+    </div>
+  `;
+  const membersPanel = document.createElement("pds-tabpanel");
+  membersPanel.id = "/settings/members";
+  membersPanel.setAttribute("label", "Members");
+  membersPanel.innerHTML = `<div class="p-md"><p class="text-muted">Loading members\u2026</p><ul class="stack-xs list-unstyled" data-members></ul></div>`;
+  const notifPanel = document.createElement("pds-tabpanel");
+  notifPanel.id = "/settings/notifications";
+  notifPanel.setAttribute("label", "Notifications");
+  notifPanel.innerHTML = `
+    <div class="stack-sm p-md">
+      <h3 class="text-base">Notification preferences</h3>
+      <p class="text-muted text-sm">Choose how you receive notifications.</p>
+    </div>
+  `;
+  const securityPanel = document.createElement("pds-tabpanel");
+  securityPanel.id = "/settings/security";
+  securityPanel.setAttribute("label", "Security");
+  securityPanel.innerHTML = `
+    <div class="stack-sm p-md">
+      <h3 class="text-base">Security</h3>
+      <p class="text-muted text-sm">Password, 2FA, and session settings.</p>
+    </div>
+  `;
+  tabstrip.appendChild(general);
+  tabstrip.appendChild(membersPanel);
+  tabstrip.appendChild(notifPanel);
+  tabstrip.appendChild(securityPanel);
+  wrap.appendChild(tabstrip);
+  const path = (currentPath || "").replace(/^\/+/, "");
+  const selectedId = pathToPanelId(path);
+  tabstrip.selected = selectedId;
+  tabstrip.addEventListener("tabchange", (e2) => {
+    const panelId = e2.detail?.newTab;
+    if (!panelId || typeof panelId !== "string")
+      return;
+    const newPath = panelId.startsWith("/") ? panelId.slice(1) : panelId;
+    if (newPath && getCurrentPath() !== newPath)
+      navigateTo(newPath);
+  });
+  loadMembersFromCountries(12).then((items) => {
+    const ul = membersPanel.querySelector("[data-members]");
+    if (!ul)
+      return;
+    membersPanel.querySelector(".text-muted")?.remove?.();
+    for (const m of items) {
+      const li = document.createElement("li");
+      li.className = "flex gap-sm items-center p-sm surface-subtle radius-base";
+      li.innerHTML = `
+          <span class="text-sm">${escapeHtml4(m.name ?? "")}</span>
+          <span class="badge badge-secondary text-xs">${escapeHtml4(m.role ?? "")}</span>
+        `;
+      ul.appendChild(li);
+    }
+  }).catch(() => {
+  });
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+function escapeHtml4(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// src/js/lib/speech.js
+var synthesis = null;
+function getSynthesis() {
+  if (typeof window === "undefined")
+    return null;
+  if (!synthesis && window.speechSynthesis)
+    synthesis = window.speechSynthesis;
+  return synthesis;
+}
+function ensureReady(timeoutMs = 800) {
+  const syn = getSynthesis();
+  if (!syn)
+    return Promise.resolve();
+  const voices = syn.getVoices();
+  if (voices.length > 0)
+    return Promise.resolve();
+  return new Promise((resolve) => {
+    const done = () => {
+      syn.removeEventListener("voiceschanged", done);
+      resolve();
+    };
+    syn.addEventListener("voiceschanged", done);
+    setTimeout(done, timeoutMs);
+  });
+}
+function primeSynthesis() {
+  const syn = getSynthesis();
+  if (!syn)
+    return Promise.resolve();
+  return new Promise((resolve) => {
+    const u = new SpeechSynthesisUtterance("\u200B");
+    u.volume = 0;
+    u.rate = 10;
+    u.onend = () => resolve();
+    u.onerror = () => resolve();
+    syn.speak(u);
+  });
+}
+function selectVoice(voices, lang) {
+  if (!voices.length)
+    return null;
+  const langPrefix = lang.slice(0, 2);
+  const forLang = (v) => v.lang.startsWith(langPrefix) || v.lang.startsWith(lang);
+  const defaultForLang = voices.find((v) => forLang(v) && v.default);
+  if (defaultForLang)
+    return defaultForLang;
+  const anyForLang = voices.find(forLang);
+  if (anyForLang)
+    return anyForLang;
+  const systemDefault = voices.find((v) => v.default);
+  return systemDefault || voices[0];
+}
+function speak(text, options = {}) {
+  const syn = getSynthesis();
+  if (!syn || !text)
+    return Promise.resolve();
+  const lang = options.lang ?? (document.documentElement.lang || "en-US");
+  return ensureReady().then(() => primeSynthesis()).then(() => {
+    return new Promise((resolve, reject) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = options.rate ?? 1.2;
+      u.pitch = options.pitch ?? 1;
+      u.volume = options.volume ?? 1;
+      u.lang = lang;
+      const voices = syn.getVoices();
+      const chosen = selectVoice(voices, lang);
+      if (chosen)
+        u.voice = chosen;
+      u.onend = () => resolve();
+      u.onerror = (e2) => reject(e2);
+      syn.speak(u);
+    });
+  });
+}
+function isSpeechSupported() {
+  return Boolean(getSynthesis());
+}
+
+// src/js/pages/board.js
+var COLUMNS = [
+  { id: "todo", title: "To do", items: ["Review PR", "Update docs", "Fix bug #42"] },
+  { id: "doing", title: "In progress", items: ["Implement feature"] },
+  { id: "done", title: "Done", items: ["Setup project", "Design mockups"] }
+];
+function withViewTransition(update) {
+  if (typeof document.startViewTransition === "function") {
+    return document.startViewTransition(update).finished;
+  }
+  update();
+  return Promise.resolve();
+}
+function renderBoard() {
+  const wrap = document.createElement("div");
+  wrap.className = "stack-lg";
+  const header = document.createElement("header");
+  header.className = "flex justify-between items-center gap-md";
+  header.innerHTML = `
+    <h2 class="text-lg">Board</h2>
+    <div class="flex gap-sm items-center">
+      <button type="button" class="btn-outline btn-sm" id="board-speak-btn" aria-label="Read board aloud">
+        <pds-icon icon="microphone" size="sm"></pds-icon>
+        <span>Read aloud</span>
+      </button>
+      <button type="button" class="btn-primary btn-sm" id="board-webauthn-btn">
+        Sign in with passkey
+      </button>
+    </div>
+  `;
+  wrap.appendChild(header);
+  const grid = document.createElement("div");
+  grid.className = "grid grid-cols-1 md:grid-cols-3 gap-lg";
+  grid.setAttribute("data-board", "");
+  const state = COLUMNS.map((col) => ({ ...col, items: [...col.items] }));
+  function renderColumns() {
+    grid.innerHTML = "";
+    for (const col of state) {
+      const colEl = document.createElement("div");
+      colEl.className = "card surface-elevated p-md stack-md";
+      colEl.setAttribute("data-column", col.id);
+      colEl.setAttribute("droppable", "true");
+      const title = document.createElement("h3");
+      title.className = "text-base";
+      title.textContent = col.title;
+      colEl.appendChild(title);
+      const list = document.createElement("ul");
+      list.className = "stack-sm min-h-[80px]";
+      list.style.listStyle = "none";
+      list.style.padding = "0";
+      list.style.margin = "0";
+      for (const text of col.items) {
+        const li = document.createElement("li");
+        li.className = "card surface-subtle p-sm cursor-grab";
+        li.setAttribute("draggable", "true");
+        li.setAttribute("data-item", text);
+        li.textContent = text;
+        list.appendChild(li);
+      }
+      colEl.appendChild(list);
+      grid.appendChild(colEl);
+    }
+  }
+  function wireDragDrop() {
+    let dragged = null;
+    let sourceColumnId = null;
+    grid.querySelectorAll('[draggable="true"]').forEach((el) => {
+      el.addEventListener("dragstart", (e2) => {
+        dragged = e2.target;
+        sourceColumnId = e2.target.closest("[data-column]")?.getAttribute("data-column") ?? null;
+        e2.dataTransfer.setData("text/plain", e2.target.getAttribute("data-item") ?? "");
+        e2.dataTransfer.effectAllowed = "move";
+      });
+      el.addEventListener("dragend", () => {
+        dragged = null;
+        sourceColumnId = null;
+      });
+    });
+    grid.querySelectorAll('[droppable="true"]').forEach((colEl) => {
+      colEl.addEventListener("dragover", (e2) => {
+        e2.preventDefault();
+        e2.dataTransfer.dropEffect = "move";
+      });
+      colEl.addEventListener("drop", (e2) => {
+        e2.preventDefault();
+        const text = e2.dataTransfer.getData("text/plain");
+        const targetColId = colEl.getAttribute("data-column");
+        if (!text || !sourceColumnId || !targetColId)
+          return;
+        const srcCol = state.find((c) => c.id === sourceColumnId);
+        const tgtCol = state.find((c) => c.id === targetColId);
+        if (!srcCol || !tgtCol || srcCol.id === tgtCol.id)
+          return;
+        const idx = srcCol.items.indexOf(text);
+        if (idx === -1)
+          return;
+        withViewTransition(() => {
+          srcCol.items.splice(idx, 1);
+          tgtCol.items.push(text);
+          renderColumns();
+          wireDragDrop();
+        });
+      });
+    });
+  }
+  renderColumns();
+  wireDragDrop();
+  wrap.appendChild(grid);
+  const speakBtn = wrap.querySelector("#board-speak-btn");
+  if (speakBtn && isSpeechSupported()) {
+    speakBtn.addEventListener("click", async () => {
+      const lines = state.map((c) => `${c.title}: ${c.items.join(", ") || "empty"}`);
+      const text = lines.join(". ");
+      if (!text.trim())
+        return;
+      speakBtn.classList.add("btn-working");
+      try {
+        await speak(text);
+      } catch (err) {
+        if (typeof window.PDS?.toast === "function") {
+          window.PDS.toast("Read aloud failed. Check system speech or try again.", { type: "warning" });
+        }
+      } finally {
+        speakBtn.classList.remove("btn-working");
+      }
+    });
+  } else if (speakBtn) {
+    speakBtn.disabled = true;
+    speakBtn.title = "Speech synthesis not supported";
+  }
+  const webauthnBtn = wrap.querySelector("#board-webauthn-btn");
+  if (webauthnBtn) {
+    webauthnBtn.addEventListener("click", () => runWebAuthnDemo(webauthnBtn));
+  }
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+async function runWebAuthnDemo(btn) {
+  if (!window.PublicKeyCredential) {
+    if (typeof window.PDS?.toast === "function") {
+      window.PDS.toast("Web Authentication API is not supported in this browser.", { type: "warning" });
+    } else {
+      alert("Web Authentication API is not supported in this browser.");
+    }
+    return;
+  }
+  const orig = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Checking\u2026";
+  try {
+    const opts = {
+      challenge: new Uint8Array(32),
+      rp: { name: "PDS Dashboard Demo" },
+      user: {
+        id: new Uint8Array(16),
+        name: "demo@example.com",
+        displayName: "Demo User"
+      },
+      /* ES256 (-7) and RS256 (-257) per Chrome / WebAuthn recommendations */
+      pubKeyCredParams: [
+        { alg: -7, type: "public-key" },
+        { alg: -257, type: "public-key" }
+      ],
+      timeout: 6e4
+    };
+    const cred = await navigator.credentials.create({ publicKey: opts });
+    if (cred && typeof window.PDS?.toast === "function") {
+      window.PDS.toast("Passkey created (demo). In production, verify with your backend.", { type: "success" });
+    }
+  } catch (err) {
+    if (err.name === "NotAllowedError") {
+      if (typeof window.PDS?.toast === "function") {
+        window.PDS.toast("Passkey creation was cancelled.", { type: "information" });
+      }
+    } else if (typeof window.PDS?.toast === "function") {
+      const msg = err.message || "";
+      const isInvalidDomain = /invalid domain|secure context|not a valid/i.test(msg);
+      if (isInvalidDomain) {
+        window.PDS.toast("Passkeys require a secure context. Use https://localhost:4173 instead of 127.0.0.1.", { type: "warning", duration: 6e3 });
+      } else {
+        window.PDS.toast("Passkey demo: " + (msg || "unsupported"), { type: "warning" });
+      }
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = orig;
+  }
+}
+
+// src/js/pages/login.js
+function renderLogin() {
+  const wrap = document.createElement("div");
+  wrap.className = "login-page";
+  wrap.setAttribute("role", "main");
+  const section = document.createElement("section");
+  section.className = "login-section";
+  section.innerHTML = `
+    <div class="login-card-wrapper">
+      <article class="card surface-elevated p-lg stack-lg login-card">
+        <header class="stack-sm">
+          <h1 class="text-xl login-title">Sign in</h1>
+          <p class="text-muted text-sm">Enter your email and password to continue.</p>
+        </header>
+        <form class="login-form stack-md" data-required>
+          <label class="stack-xs">
+            <span class="text-sm">Email</span>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@example.com"
+              class="w-full p-sm radius-md surface-fieldset-base" />
+          </label>
+          <label class="stack-xs">
+            <span class="text-sm">Password</span>
+            <input type="password" name="password" required autocomplete="current-password" placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+              class="w-full p-sm radius-md surface-fieldset-base" />
+          </label>
+          <div class="flex gap-sm items-center justify-between">
+            <a href="#/" class="text-sm link-primary" data-nav-home>Back to dashboard</a>
+            <button type="submit" class="btn-primary">Sign in</button>
+          </div>
+        </form>
+        <footer class="text-center text-sm text-muted">
+          Don't have an account? <a href="#/login" class="link-primary">Sign up</a>
+        </footer>
+      </article>
+    </div>
+  `;
+  const form = section.querySelector(".login-form");
+  const linkHome = section.querySelector("[data-nav-home]");
+  if (form) {
+    form.addEventListener("submit", (e2) => {
+      e2.preventDefault();
+      const fd = new FormData(form);
+      const email = fd.get("email");
+      const password = fd.get("password");
+      if (typeof window.PDS?.toast === "function") {
+        window.PDS.toast("Sign in (demo) \u2013 use any email/password.", { type: "information", duration: 3e3 });
+      }
+      navigateTo("");
+    });
+  }
+  if (linkHome) {
+    linkHome.addEventListener("click", (e2) => {
+      e2.preventDefault();
+      navigateTo("");
+    });
+  }
+  wrap.appendChild(section);
+  fadeIn(wrap, { duration: 150 });
+  return wrap;
+}
+
+// src/js/app.js
+document.addEventListener(
+  "pds:ready",
+  () => {
+    if (typeof document.adoptedStyleSheets !== "undefined") {
+      fetch("/assets/css/theme-override.css").then((r) => r.text()).then((css) => {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(css);
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+      }).catch(() => {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/assets/css/theme-override.css";
+        document.head.appendChild(link);
+      });
+    } else {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/assets/css/theme-override.css";
+      document.head.appendChild(link);
+    }
+  },
+  { once: true }
+);
+await b.start(config);
+var body = document.body;
+var { layoutRoot, mainOutlet, updateSidebar, setCommandPaletteDrawer, setNotificationsDrawer, setThemeDrawer, openCommandPalette, openNotifications } = createLayout();
+var commandPalette = createCommandPalette();
+var notificationsSlideover = createNotificationsSlideover();
+setCommandPaletteDrawer(commandPalette);
+setNotificationsDrawer(notificationsSlideover);
+registerCommandPaletteShortcut(openCommandPalette);
+document.addEventListener("keydown", (e2) => {
+  if (e2.key === "n" && (e2.metaKey || e2.ctrlKey)) {
+    e2.preventDefault();
+    openNotifications();
+  }
+});
+body.innerHTML = "";
+body.classList.remove("container");
+body.classList.add("flex", "flex-col");
+var appWrapper = document.createElement("div");
+appWrapper.className = "flex flex-col app-wrapper";
+body.appendChild(appWrapper);
+body.appendChild(commandPalette);
+body.appendChild(notificationsSlideover);
+var themeDrawer = document.createElement("pds-drawer");
+themeDrawer.setAttribute("position", "right");
+themeDrawer.innerHTML = `
+  <div slot="drawer-header">Theme</div>
+  <div slot="drawer-content"><pds-theme></pds-theme></div>
+`;
+body.appendChild(themeDrawer);
+setThemeDrawer(themeDrawer);
 var THEME_LABELS = /* @__PURE__ */ new Map([
   ["system", "System"],
   ["light", "Light"],
@@ -1455,50 +2673,48 @@ b.addEventListener("pds:theme:changed", (event) => {
   if (!theme || typeof b.toast !== "function")
     return;
   const label = THEME_LABELS.get(theme) ?? theme.charAt(0).toUpperCase() + theme.slice(1);
-  void b.toast(`Theme changed to ${label}`, {
-    type: "information",
-    duration: 2e3
-  });
+  void b.toast(`Theme: ${label}`, { type: "information", duration: 2e3 });
 });
-/*! Bundled license information:
-
-@pure-ds/core/public/assets/js/pds.js:
-  (*! Bundled license information:
-  
-  @lit/reactive-element/css-tag.js:
-    (**
-     * @license
-     * Copyright 2019 Google LLC
-     * SPDX-License-Identifier: BSD-3-Clause
-     *)
-  
-  @lit/reactive-element/reactive-element.js:
-    (**
-     * @license
-     * Copyright 2017 Google LLC
-     * SPDX-License-Identifier: BSD-3-Clause
-     *)
-  
-  lit-html/lit-html.js:
-    (**
-     * @license
-     * Copyright 2017 Google LLC
-     * SPDX-License-Identifier: BSD-3-Clause
-     *)
-  
-  lit-element/lit-element.js:
-    (**
-     * @license
-     * Copyright 2017 Google LLC
-     * SPDX-License-Identifier: BSD-3-Clause
-     *)
-  
-  lit-html/is-server.js:
-    (**
-     * @license
-     * Copyright 2022 Google LLC
-     * SPDX-License-Identifier: BSD-3-Clause
-     *)
-  *)
-*/
+route("/", () => renderHome());
+route("inbox", () => renderInbox());
+route("customers", () => renderCustomers());
+route("settings", () => renderSettings(getCurrentPath()));
+route("settings/members", () => renderSettings(getCurrentPath()));
+route("settings/notifications", () => renderSettings(getCurrentPath()));
+route("settings/security", () => renderSettings(getCurrentPath()));
+route("board", () => renderBoard());
+route("login", () => renderLogin());
+onNavigate((path) => {
+  if (path !== "login")
+    updateSidebar(path);
+});
+function useViewTransition(cb) {
+  if (typeof document.startViewTransition === "function") {
+    return document.startViewTransition(cb).finished;
+  }
+  cb();
+  return Promise.resolve();
+}
+initRouter(async (path, pageEl) => {
+  const pathNorm = path || "/";
+  if (pathNorm === "login") {
+    await useViewTransition(() => {
+      appWrapper.innerHTML = "";
+      appWrapper.appendChild(pageEl);
+    });
+    return pageEl;
+  }
+  if (!appWrapper.contains(layoutRoot)) {
+    appWrapper.innerHTML = "";
+    appWrapper.appendChild(layoutRoot);
+  }
+  updateSidebar(pathNorm);
+  if (!pageEl)
+    return null;
+  await useViewTransition(() => {
+    mainOutlet.innerHTML = "";
+    mainOutlet.appendChild(pageEl);
+  });
+  return pageEl;
+});
 //# sourceMappingURL=/assets/js/app.js.map
