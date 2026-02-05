@@ -6,7 +6,6 @@ main {
   margin: auto;
 }
 
-/* Dashboard: scope main and title so layout/colors are correct */
 .dashboard-layout main {
   margin: 0;
   padding: var(--spacing-6);
