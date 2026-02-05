@@ -6,6 +6,63 @@ main {
   margin: auto;
 }
 
+/* Dashboard: scope main and title so layout/colors are correct */
+.dashboard-layout main {
+  margin: 0;
+  padding: var(--spacing-6);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-default, var(--color-text-primary));
+}
+
+.dashboard-layout header[class*="surface-subtle"] {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-default, var(--color-text-primary));
+  border-bottom: 1px solid var(--color-surface-border, rgba(0, 0, 0, 0.08));
+}
+
+.dashboard-layout header h1,
+.dashboard-layout h1 {
+  background: none;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.dashboard-sidebar {
+  min-width: var(--spacing-48, 12rem);
+  padding: var(--spacing-4);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-default, var(--color-text-primary));
+  border-inline-end: 1px solid var(--color-surface-border, rgba(0, 0, 0, 0.08));
+}
+
+.dashboard-sidebar a {
+  color: var(--color-text-default, var(--color-text-primary));
+  text-decoration: none;
+}
+
+.dashboard-sidebar a:hover {
+  background-color: var(--color-surface-hover, var(--color-surface-subtle));
+}
+
+.dashboard-sidebar a.surface-subtle {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-primary);
+}
+
+/* Nav links: same padding and alignment as Settings toggle */
+.dashboard-sidebar .dashboard-nav-link {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+.dashboard-sidebar .dashboard-nav-toggle {
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+/* Non-dashboard h1 (e.g. hero) keeps gradient */
 h1 {
   background: linear-gradient(var(--gradient-angle, 135deg),
     var(--color-primary-400),
@@ -56,4 +113,157 @@ footer {
 
 .hero > div {
   margin: var(--spacing-10) 0;
+}
+
+/* Dashboard: layout and toolbar (PDS tokens only) */
+.dashboard-toolbar-actions {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+/* Square toolbar icon buttons; PDS icon sizes: xs=16px, sm=20px, md=24px (see Storybook foundations-icons) */
+.dashboard-toolbar-actions .dashboard-toolbar-btn {
+  padding: var(--spacing-2);
+  min-width: 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-toolbar-actions .dashboard-toolbar-btn pds-icon {
+  width: var(--icon-size-xs);
+  height: var(--icon-size-xs);
+}
+
+.dashboard-theme-toggle {
+  position: fixed;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  z-index: 1000;
+}
+
+/* List without bullets (for nav, notifications, members) */
+.list-unstyled {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-nav-sublist {
+  padding-inline-start: var(--spacing-6);
+}
+
+.dashboard-nav-sublist a {
+  padding: var(--spacing-2) var(--spacing-4);
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-nav-sublist[data-expanded="false"] {
+  display: none;
+}
+
+.dashboard-nav-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-default, var(--color-text-primary));
+  width: 100%;
+}
+
+.dashboard-nav-toggle:hover {
+  background-color: var(--color-surface-hover, var(--color-surface-subtle));
+}
+
+.dashboard-nav-toggle[aria-expanded="true"] .dashboard-nav-chevron {
+  transform: rotate(180deg);
+}
+
+.dashboard-nav-chevron {
+  margin-inline-start: auto;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-content {
+  min-width: 0;
+}
+
+/* Full viewport: body and app wrapper */
+body.flex.flex-col {
+  min-height: 100dvh;
+}
+
+.app-wrapper {
+  min-height: 100dvh;
+  flex: 1;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100dvh;
+  height: 100dvh;
+  flex: 1;
+}
+
+.dashboard-layout > aside {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Chart card: positioning for tooltip + hover animation */
+.chart-card {
+  position: relative;
+}
+
+/* Login page: full viewport, centered card (NuxtUI-style) */
+.login-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-base);
+  padding: var(--spacing-6);
+}
+
+.login-section {
+  width: 100%;
+  max-width: 440px;
+}
+
+.login-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-title {
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary);
+  background: none;
+}
+
+.login-form input {
+  border: var(--border-width-thin, 1px) solid var(--color-border);
+  background-color: var(--color-surface-fieldset-base);
+  color: var(--color-text-primary);
+}
+
+.link-primary {
+  color: var(--color-primary-500);
+  text-decoration: none;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
 }
