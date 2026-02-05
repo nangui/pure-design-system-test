@@ -1,0 +1,66 @@
+{
+  "exportedAt": "2026-01-24T16:36:12.505Z",
+  "staticRoot": "/assets/pds/",
+  "presetId": "social-feed",
+  "preset": "Social Feed",
+  "config": {
+    "preset": "Social Feed",
+    "design": {
+      "id": "social-feed",
+      "name": "Social Feed",
+      "tags": [
+        "app",
+        "featured"
+      ],
+      "description": "Content-first social platform with minimal chrome, bold actions, and vibrant media presentation",
+      "options": {
+        "liquidGlassEffects": true,
+        "backgroundMesh": 4
+      },
+      "colors": {
+        "primary": "#1877f2",
+        "secondary": "#65676b",
+        "accent": "#fe2c55",
+        "background": "#ffffff",
+        "darkMode": {
+          "background": "#18191a",
+          "secondary": "#b0b3b8",
+          "primary": "#2d88ff"
+        }
+      },
+      "typography": {
+        "baseFontSize": 15,
+        "fontScale": 1.2,
+        "fontFamilyHeadings": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "fontFamilyBody": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+        "fontWeightNormal": 400,
+        "fontWeightMedium": 500,
+        "fontWeightSemibold": 600,
+        "fontWeightBold": 700,
+        "lineHeightNormal": 1.75
+      },
+      "spatialRhythm": {
+        "baseUnit": 4,
+        "scaleRatio": 1.25,
+        "containerMaxWidth": 680,
+        "sectionSpacing": 1.5
+      },
+      "shape": {
+        "radiusSize": 8,
+        "borderWidth": 1
+      },
+      "behavior": {
+        "transitionSpeed": 150,
+        "animationEasing": "ease-out",
+        "hoverOpacity": 0.85
+      }
+    }
+  },
+  "paths": {
+    "tokens": "/assets/pds/styles/pds-tokens.css.js",
+    "primitives": "/assets/pds/styles/pds-primitives.css.js",
+    "components": "/assets/pds/styles/pds-components.css.js",
+    "utilities": "/assets/pds/styles/pds-utilities.css.js",
+    "styles": "/assets/pds/styles/pds-styles.css.js"
+  }
+}

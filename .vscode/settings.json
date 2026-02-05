@@ -1,0 +1,8 @@
+{
+  "html.customData": [
+    "public/assets/pds/vscode-custom-data.json"
+  ],
+  "css.customData": [
+    "public/assets/pds/pds.css-data.json"
+  ]
+}
